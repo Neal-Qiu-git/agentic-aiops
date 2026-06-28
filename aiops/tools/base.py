@@ -14,11 +14,14 @@ class ToolCategory(Enum):
     SSH = "ssh"
     K8S = "k8s"
     DOCKER = "docker"
+    CONTAINER = "container"
     DATABASE = "database"
     MONITORING = "monitoring"
     LOG = "log"
     SECURITY = "security"
     UTILITY = "utility"
+    CLOUD_API = "cloud_api"
+    ORCHESTRATION = "orchestration"
 
 
 @dataclass
