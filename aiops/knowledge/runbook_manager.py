@@ -43,6 +43,73 @@ class RunbookManager:
             logger.warning(f"Runbook file not found: {runbook_file}")
             self._runbooks = []
 
+        # 加载书籍知识
+        self._load_books()
+
+    def _load_books(self):
+        """加载书籍知识"""
+        books_dir = self.data_dir / "books"
+        if not books_dir.exists():
+            books_dir.mkdir(parents=True, exist_ok=True)
+
+        # 加载所有 JSON 书籍
+        for book_file in books_dir.glob("*.json"):
+            try:
+                with open(book_file, "r", encoding="utf-8") as f:
+                    book = json.load(f)
+                    # 转换为 runbook 格式
+                    runbook = self._book_to_runbook(book)
+                    if runbook:
+                        self._runbooks.append(runbook)
+                        logger.info(f"Loaded book: {book.get('title', book_file.name)}")
+            except Exception as e:
+                logger.error(f"Failed to load book {book_file}: {e}")
+
+    def _book_to_runbook(self, book: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """将书籍转换为 Runbook 格式"""
+        if not book.get("id") or not book.get("title"):
+            return None
+
+        # 构建症状列表
+        symptoms = []
+        for chapter in book.get("chapters", []):
+            for topic in chapter.get("topics", []):
+                symptoms.append(topic.lower())
+
+        # 添加关键主题
+        for topic in book.get("key_topics", []):
+            symptoms.append(topic.lower())
+
+        # 构建诊断命令（基于章节）
+        diagnosis_commands = []
+        for chapter in book.get("chapters", []):
+            diagnosis_commands.append(f"# Chapter {chapter.get('chapter')}: {chapter.get('title')}")
+            for topic in chapter.get("topics", []):
+                diagnosis_commands.append(f"# - {topic}")
+
+        return {
+            "id": book["id"],
+            "title": book["title"],
+            "category": book.get("category", "reference"),
+            "severity": "info",
+            "symptoms": symptoms,
+            "description": book.get("description", ""),
+            "diagnosis": {
+                "commands": diagnosis_commands,
+                "log_files": [],
+                "metrics": []
+            },
+            "root_causes": [],
+            "fixes": [],
+            "verification": "",
+            "prevention": [],
+            "tags": book.get("tags", []),
+            "source": "book",
+            "author": book.get("author", ""),
+            "chapters": book.get("chapters", []),
+            "key_topics": book.get("key_topics", [])
+        }
+
     def search(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
         """
         搜索 Runbook
