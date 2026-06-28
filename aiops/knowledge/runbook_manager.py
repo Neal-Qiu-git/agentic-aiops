@@ -137,28 +137,62 @@ class RunbookManager:
     def _calculate_score(self, runbook: Dict[str, Any], query: str) -> int:
         """计算匹配分数"""
         score = 0
+        query_lower = query.lower()
+        query_words = query_lower.split()
 
         # 匹配标题
-        if query in runbook.get("title", "").lower():
+        if query_lower in runbook.get("title", "").lower():
             score += 10
 
         # 匹配症状
         for symptom in runbook.get("symptoms", []):
-            if query in symptom.lower():
+            if query_lower in symptom.lower():
                 score += 5
+            # 检查查询的每个词是否匹配症状
+            for word in query_words:
+                if word in symptom.lower():
+                    score += 2
 
         # 匹配描述
-        if query in runbook.get("description", "").lower():
+        if query_lower in runbook.get("description", "").lower():
             score += 3
 
         # 匹配标签
         for tag in runbook.get("tags", []):
-            if query in tag.lower():
+            if query_lower in tag.lower():
                 score += 2
+            for word in query_words:
+                if word in tag.lower():
+                    score += 1
 
         # 匹配分类
-        if query in runbook.get("category", "").lower():
+        if query_lower in runbook.get("category", "").lower():
             score += 2
+
+        # 匹配章节（针对书籍）
+        for chapter in runbook.get("chapters", []):
+            chapter_title = chapter.get("title", "").lower()
+            # 匹配章节标题
+            if query_lower in chapter_title:
+                score += 8
+            for word in query_words:
+                if word in chapter_title:
+                    score += 3
+            # 匹配章节主题
+            for topic in chapter.get("topics", []):
+                if query_lower in topic.lower():
+                    score += 4
+                for word in query_words:
+                    if word in topic.lower():
+                        score += 2
+
+        # 匹配关键主题
+        for topic in runbook.get("key_topics", []):
+            if query_lower in topic.lower():
+                score += 4
+            for word in query_words:
+                if word in topic.lower():
+                    score += 2
 
         return score
 
