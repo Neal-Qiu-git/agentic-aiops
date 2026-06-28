@@ -5,7 +5,7 @@ Agentic AIOps - AI Native 智能运维平台
 真正实现：AI 能独立完成一次完整的运维闭环。
 """
 
-__version__ = "3.2.0"
+__version__ = "4.0.0"
 __author__ = "Neal"
 __license__ = "MIT"
 __description__ = "AI Native 智能运维平台，让 AI 不仅能分析，还能真正完成运维工作"
