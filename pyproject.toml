@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentic-aiops"
-version = "2.1.0"
-description = "Agent 驱动的智能运维平台"
+version = "3.0.0"
+description = "AI Native 智能运维平台，让 AI 不仅能分析，还能真正完成运维工作"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
     {name = "Neal", email = "neal@example.com"}
 ]
 requires-python = ">=3.9"
-keywords = ["aiops", "devops", "sre", "kubernetes", "monitoring", "automation"]
+keywords = ["aiops", "devops", "sre", "kubernetes", "docker", "monitoring", "automation", "agent", "llm", "rag"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",

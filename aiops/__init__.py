@@ -1,13 +1,14 @@
 """
-Agentic AIOps - Agent 驱动的智能运维平台
+Agentic AIOps - AI Native 智能运维平台
 
-一个基于 ReAct 循环的智能运维系统，支持多种 Agent 和工具。
+基于 LLM + ReAct + MCP + Multi-Agent 构建的新一代 AI 运维平台。
+真正实现：AI 能独立完成一次完整的运维闭环。
 """
 
-__version__ = "2.1.0"
+__version__ = "3.0.0"
 __author__ = "Neal"
 __license__ = "MIT"
-__description__ = "Agent 驱动的智能运维平台"
+__description__ = "AI Native 智能运维平台，让 AI 不仅能分析，还能真正完成运维工作"
 
 # 导出核心模块
 from .core.config import Config, ServerConfig, AIConfig
