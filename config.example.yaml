@@ -1,0 +1,32 @@
+# Agentic AIOps 配置文件
+# 复制为 config.yaml 后修改
+
+servers:
+  - name: production
+    host: your-server-ip
+    port: 22
+    user: root
+    # password: xxx
+    # key_file: ~/.ssh/id_rsa
+
+defaults:
+  timeout: 10
+  retry: 3
+
+ai:
+  enabled: false
+  provider: deepseek
+  api_key: ""
+  model: deepseek-chat
+  base_url: https://api.deepseek.com/v1
+
+thresholds:
+  cpu:
+    warning: 70
+    critical: 90
+  memory:
+    warning: 75
+    critical: 90
+  disk:
+    warning: 75
+    critical: 90
