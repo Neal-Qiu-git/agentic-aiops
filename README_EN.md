@@ -2,18 +2,16 @@
 
 <div align="center">
 
-🤖 **AI Native Autonomous Operations Platform**
+🤖 **AI-native Operations Platform**
 
-*An Autonomous Operations Platform powered by LLM, Multi-Agent and MCP for Linux, Kubernetes, Cloud and Database Operations*
+*Purpose-built for SRE, DevOps, and Cloud Native automation*
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-3.1-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-3.2-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-Supported-FF6B35?style=flat-square)]()
-[![ReAct](https://img.shields.io/badge/ReAct-Agent-9B59B6?style=flat-square)]()
-[![Multi-Agent](https://img.shields.io/badge/Multi--Agent-E74C3C?style=flat-square)]()
+[![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
+[![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
 
 English | [中文](README.md)
 
@@ -21,87 +19,72 @@ English | [中文](README.md)
 
 ---
 
-## What is Agentic AIOps?
+## Why Agentic AIOps?
 
-**Agentic AIOps** is a next-generation AI operations platform built on **LLM + ReAct + MCP + Multi-Agent**.
+Generic AI Agent frameworks are not built for operations.
+
+**Agentic AIOps is purpose-built for:**
+
+- 🐧 Linux — System diagnostics and troubleshooting
+- ☸️ Kubernetes — Container orchestration management
+- 🗄️ Database — MySQL, Redis, PostgreSQL, MongoDB
+- 📊 Monitoring — Prometheus, Grafana analysis
+- ☁️ Cloud — AWS, Aliyun, Tencent
+- 🔒 Security — Vulnerability scanning, compliance
+
+---
+
+## ✨ Features
+
+- 🤖 **12 Specialized Agents**
+- 🔄 **ReAct Reasoning**
+- 🔌 **MCP Tool Calling** — 20+ tools
+- 🧠 **Operational Memory**
+- 📚 **Knowledge RAG**
+- ⚡ **Event Bus**
+- 🚦 **Workflow Engine**
+- 👤 **Human Approval**
+
+---
+
+## 📸 Demo
+
+```bash
+$ aiops diagnose --host 10.0.0.1 --symptom "high CPU"
+
+[08:32:01] 🔍 OBSERVE    CPU 95%, Memory 87%
+[08:32:02] 🧠 REASON     Analyzing processes
+[08:32:03] 📋 PLAN       check_top → check_process → check_gc
+[08:32:04] ⚡ ACTION     $ top -bn1 | head -20
+[08:32:05] ✅ VERIFY     Java GC consuming 80% CPU
+[08:32:06] 📝 LEARN      Recorded to knowledge base
+
+Root Cause: Java Full GC
+Fix: Increase JVM heap -Xmx4g → 8g
+```
+
+---
+
+## 🏗️ Architecture
 
 ```
-Traditional AIOps: Alert → Human Processing
-
-Agentic AIOps:
-AI Analysis → AI Planning → AI Execution → AI Verification → AI Learning
+                    User (CLI/API)
+                         │
+                    Event Bus
+                         │
+                   Planner Agent
+                         │
+    ┌────────┬───────┬───┴───┬───────┬────────┐
+    │        │       │       │       │        │
+  Linux    K8s      DB     Log   Monitor  Security
+  Agent    Agent   Agent  Agent   Agent    Agent
+    │        │       │       │       │        │
+    └────────┴───────┴───┬───┴───────┴────────┘
+                         │
+                  MCP Marketplace
+                         │
+               Memory │ Knowledge │ RAG
 ```
-
-> **AI can independently complete a full operations loop.**
-
----
-
-## ✨ Why Agentic AIOps?
-
-| Feature | Traditional AIOps | Agentic AIOps |
-|---------|:-----------------:|:-------------:|
-| Root Cause Analysis | ✅ | ✅ |
-| Auto Fix | ❌ | ✅ |
-| Multi-Agent | ❌ | ✅ |
-| Memory | ❌ | ✅ |
-| Knowledge Base | ❌ | ✅ |
-| Human Approval | ❌ | ✅ |
-| Workflow | ❌ | ✅ |
-| Event Bus | ❌ | ✅ |
-| Plugin System | ❌ | ✅ |
-
----
-
-## 🧠 Core Design Principles
-
-1. **Planner-driven** — All tasks are decomposed by PlannerAgent before execution
-2. **Tool-first** — All capabilities abstracted via MCP Tools
-3. **Memory-native** — Every execution learns and forms long-term experience
-4. **Human-in-the-loop** — High-risk operations require approval
-5. **Event-driven** — All Agents collaborate via Event Bus
-
----
-
-## 🤖 Supported Agents
-
-| Agent | Description | Status |
-|-------|-------------|:------:|
-| 🐧 Linux Agent | System operations | ✅ |
-| ☸️ K8s Agent | Kubernetes operations | ✅ |
-| 🗄️ DB Agent | Database operations | ✅ |
-| 📋 Log Agent | Log analysis | ✅ |
-| 📊 Monitor Agent | Monitoring analysis | ✅ |
-| 🔒 Security Agent | Security operations | ✅ |
-| 🚀 DevOps Agent | CI/CD operations | ✅ |
-| 🏥 SRE Agent | SRE operations | ✅ |
-| 🚨 Incident Agent | Incident management | ✅ |
-| 💰 Cost Agent | Cost optimization | ✅ |
-
----
-
-## 📊 Support Matrix
-
-### Platforms
-
-| Platform | Support |
-|----------|:-------:|
-| Linux | ✅ |
-| Docker | ✅ |
-| Kubernetes | ✅ |
-| AWS | ✅ |
-| Aliyun | ✅ |
-| Tencent | ✅ |
-
-### Databases
-
-| Database | Support |
-|----------|:-------:|
-| MySQL | ✅ |
-| Redis | ✅ |
-| PostgreSQL | ✅ |
-| MongoDB | ✅ |
-| Elasticsearch | ✅ |
-| Kafka | ✅ |
 
 ---
 
@@ -112,32 +95,61 @@ AI Analysis → AI Planning → AI Execution → AI Verification → AI Learning
 pip install agentic-aiops
 
 # Configure
-cp config.example.yaml config.yaml
-export AIOPS_AI_API_KEY="your-api-key"
+export AIOPS_AI_API_KEY=your-key
 
 # Run
 aiops diagnose --host 10.0.0.1 --symptom "high CPU"
 ```
 
+### Docker
+
+```bash
+docker run -it agentic-aiops aiops diagnose --help
+```
+
+### Kubernetes
+
+```bash
+helm install aiops ./charts/agentic-aiops
+```
+
 ---
 
-## 🏢 Enterprise Features
+## 🤖 Supported Agents
 
-- 🔐 RBAC
-- 📋 Audit Log
-- ✅ Approval Workflow
-- 🔔 Webhook Integration
-- 🔌 Plugin System
-- 📡 REST API
-- 🔄 High Availability
+| Agent | Description | Status |
+|-------|-------------|:------:|
+| Linux Agent | System operations | ✅ |
+| K8s Agent | Kubernetes operations | ✅ |
+| DB Agent | Database operations | ✅ |
+| Log Agent | Log analysis | ✅ |
+| Monitor Agent | Monitoring | ✅ |
+| Security Agent | Security | ✅ |
+| SRE Agent | SRE operations | ✅ |
+| Cost Agent | Cost optimization | ✅ |
 
 ---
 
-## 🗺️ Roadmap
+## 🤖 Supported LLM
 
-- **v1.x**: Core Agents, CLI
-- **v2.x**: Memory, Knowledge, Workflow, Approval
-- **v3.x**: Dashboard, Plugin Marketplace, Voice Agent
+- DeepSeek
+- OpenAI (GPT-4)
+- Anthropic (Claude)
+- Qwen
+- Ollama
+- OpenRouter
+
+---
+
+## 📊 Support Matrix
+
+| Platform | Database | Monitoring |
+|----------|----------|------------|
+| Linux ✅ | MySQL ✅ | Prometheus ✅ |
+| Docker ✅ | Redis ✅ | Grafana ✅ |
+| K8s ✅ | PostgreSQL ✅ | Loki 🚧 |
+| AWS ✅ | MongoDB ✅ | |
+| Aliyun ✅ | Elasticsearch ✅ | |
 
 ---
 

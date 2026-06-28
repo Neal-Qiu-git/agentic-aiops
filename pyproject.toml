@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentic-aiops"
-version = "3.1.0"
+version = "3.2.0"
 description = "AI Native 智能运维平台，让 AI 不仅能分析，还能真正完成运维工作"
 readme = "README.md"
 license = {text = "MIT"}
