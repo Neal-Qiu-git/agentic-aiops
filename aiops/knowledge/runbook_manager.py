@@ -52,14 +52,23 @@ class RunbookManager:
         if not books_dir.exists():
             books_dir.mkdir(parents=True, exist_ok=True)
 
-        # 加载所有 JSON 书籍
+        # 加载书籍元信息
         for book_file in books_dir.glob("*.json"):
+            if "_content" in book_file.name:
+                continue  # 跳过内容文件
+
             try:
                 with open(book_file, "r", encoding="utf-8") as f:
                     book = json.load(f)
                     # 转换为 runbook 格式
                     runbook = self._book_to_runbook(book)
                     if runbook:
+                        # 加载实际内容
+                        content_file = book_file.parent / f"{book_file.stem}_content.json"
+                        if content_file.exists():
+                            with open(content_file, "r", encoding="utf-8") as cf:
+                                content_data = json.load(cf)
+                                runbook["content"] = content_data.get("chapters", [])
                         self._runbooks.append(runbook)
                         logger.info(f"Loaded book: {book.get('title', book_file.name)}")
             except Exception as e:
@@ -133,6 +142,45 @@ class RunbookManager:
         results.sort(key=lambda x: x[0], reverse=True)
 
         return [runbook for _, runbook in results[:limit]]
+
+    def search_content(self, query: str, limit: int = 3) -> List[Dict[str, Any]]:
+        """
+        搜索书籍实际内容
+
+        Args:
+            query: 搜索关键词
+            limit: 返回数量
+
+        Returns:
+            匹配的内容片段列表
+        """
+        query_lower = query.lower()
+        results = []
+
+        for runbook in self._runbooks:
+            if runbook.get("source") != "book":
+                continue
+
+            content = runbook.get("content", [])
+            for chapter in content:
+                chapter_content = chapter.get("content", "")
+                if query_lower in chapter_content.lower():
+                    # 找到匹配的内容片段
+                    idx = chapter_content.lower().find(query_lower)
+                    start = max(0, idx - 200)
+                    end = min(len(chapter_content), idx + 200)
+                    snippet = chapter_content[start:end]
+
+                    results.append({
+                        "book": runbook.get("title", ""),
+                        "chapter": chapter.get("chapter", ""),
+                        "snippet": snippet,
+                        "score": 10 if query_lower in chapter.get("chapter", "").lower() else 5
+                    })
+
+        # 按分数排序
+        results.sort(key=lambda x: x["score"], reverse=True)
+        return results[:limit]
 
     def _calculate_score(self, runbook: Dict[str, Any], query: str) -> int:
         """计算匹配分数"""
