@@ -12,7 +12,7 @@ class PlannerAgent(BaseAgent):
 
     def run(self, task, context=None):
         context = context or {}
-        context["available_agents"] = ["linux_agent", "k8s_agent", "db_agent", "log_agent", "monitor_agent", "security_agent", "devops_agent", "docker_agent"]
+        context["available_agents"] = ["linux_agent", "k8s_agent", "docker_agent", "db_agent", "log_agent", "monitor_agent", "security_agent", "devops_agent", "cloud_agent", "windows_agent", "network_agent", "middleware_agent", "servicemesh_agent", "virtual_agent"]
         context["instruction"] = "你是总控Agent。分析任务后用合适的工具执行，逐步推进，最终给出完整报告。"
         return super().run(task, context)
 

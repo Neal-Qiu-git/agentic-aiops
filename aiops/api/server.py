@@ -289,6 +289,12 @@ class AIOpsHandler(BaseHTTPRequestHandler):
             {"name": "incident", "description": "Incident management"},
             {"name": "devops", "description": "DevOps operations"},
             {"name": "cmdb", "description": "Configuration management"},
+            {"name": "cloud", "description": "Multi-cloud management"},
+            {"name": "windows", "description": "Windows Server operations"},
+            {"name": "network", "description": "Network operations"},
+            {"name": "middleware", "description": "Middleware management"},
+            {"name": "servicemesh", "description": "Service mesh operations"},
+            {"name": "virtual", "description": "Virtualization management"},
             {"name": "planner", "description": "Task planning"},
         ]
         self._respond(200, {"agents": agents})
