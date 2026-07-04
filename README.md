@@ -8,10 +8,10 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-4.3-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-4.4-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-115_Tools-FF6B35?style=flat-square)]()
+[![MCP](https://img.shields.io/badge/MCP-139_Tools-FF6B35?style=flat-square)]()
 [![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://Neal-Qiu-git.github.io/agentic-aiops/)
 
 [English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)

@@ -2,6 +2,32 @@
 
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [4.4.0] - 2026-07-04
+
+### 🏢 企业级补全 - 基于行业对标审查修复 17 项缺失
+
+#### P0 关键修复
+- ✅ **AWS CLI** — 全球 #1 云 (市占 31%), 补全 EC2/S3/RDS/Lambda/EKS/IAM
+- ✅ **GCP CLI** — 全球 #3 云 (市占 11%), 补全 GKE/Cloud SQL/GCE/Cloud Run
+- ✅ **Vault** (6 工具) — 密钥管理事实标准 (KV/租约/策略/引擎)
+- ✅ **Helm** (4 工具) — K8s 包管理事实标准 (list/status/history/rollback)
+- ✅ **Ansible** (3 工具) — 最流行配置管理 (adhoc/playbook/inventory)
+- ✅ **Harbor** — CNCF 毕业项目, K8s 容器镜像仓库
+- ✅ **Redis Cluster** (5 工具) — 从 1 个工具增强到 5 个 (info/slowlog/cluster/key分析/sentinel)
+
+#### P1 重要补充
+- ✅ **OpenStack** (3 工具) — 私有云事实标准 (server/network/volume)
+- ✅ **Cassandra** — 分布式 NoSQL (Netflix/Apple 大规模使用)
+- ✅ **Grafana Tempo** (2 工具) — CNCF 孵化, 分布式追踪
+- ✅ **Cert-Manager** — CNCF 孵化, K8s TLS 证书管理
+- ✅ **MetalLB** — CNCF 毕业, K8s 裸金属负载均衡
+- ✅ **SonarQube** (2 工具) — 代码质量/安全扫描标准
+
+#### 工具总计
+- v4.3.0: 108 个工具 → v4.4.0: **139 个工具** (+31)
+
+---
+
 ## [4.3.0] - 2026-07-04
 
 ### 🔭 可观测性全覆盖 (基于行业真实技术栈)

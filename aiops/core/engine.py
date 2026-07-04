@@ -228,6 +228,54 @@ class AIOpsEngine:
         except ImportError as e:
             logger.warning(f"FinOps 工具加载失败: {e}")
 
+        # --- AWS + GCP 工具 (v4.4.0 - 补全 #1/#3 云) ---
+        try:
+            from ..tools.cloud_tools import AWSCli, GCPCli
+            for t in [AWSCli(), GCPCli()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"AWS/GCP 工具加载失败: {e}")
+
+        # --- Vault 密钥管理 (v4.4.0) ---
+        try:
+            from ..tools.vault_tools import VaultStatus, VaultKVRead, VaultKVWrite, VaultLeaseList, VaultPolicyList, VaultSecretEngines
+            for t in [VaultStatus(), VaultKVRead(), VaultKVWrite(), VaultLeaseList(), VaultPolicyList(), VaultSecretEngines()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Vault 工具加载失败: {e}")
+
+        # --- K8s 生态工具 (v4.4.0 - Helm/Harbor/Cert-Manager/MetalLB) ---
+        try:
+            from ..tools.k8s_eco_tools import HelmList, HelmStatus, HelmHistory, HelmRollback, HarborProjects, CertManagerCerts, MetalLBBGP
+            for t in [HelmList(), HelmStatus(), HelmHistory(), HelmRollback(), HarborProjects(), CertManagerCerts(), MetalLBBGP()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"K8s 生态工具加载失败: {e}")
+
+        # --- Ansible + SonarQube (v4.4.0) ---
+        try:
+            from ..tools.config_tools import AnsibleAdHoc, AnsiblePlaybook, AnsibleInventory, SonarQubeScan, SonarQubeStatus
+            for t in [AnsibleAdHoc(), AnsiblePlaybook(), AnsibleInventory(), SonarQubeScan(), SonarQubeStatus()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"配置管理工具加载失败: {e}")
+
+        # --- OpenStack + Cassandra + Tempo (v4.4.0) ---
+        try:
+            from ..tools.cloud_native_tools import OpenStackServer, OpenStackNetwork, OpenStackVolume, CassandraTool, TempoTraces, TempoMetrics
+            for t in [OpenStackServer(), OpenStackNetwork(), OpenStackVolume(), CassandraTool(), TempoTraces(), TempoMetrics()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"云原生工具加载失败: {e}")
+
+        # --- Redis 增强 (v4.4.0) ---
+        try:
+            from ..tools.redis_tools import RedisInfo, RedisSlowlog, RedisClusterInfo, RedisKeyAnalysis, RedisSentinel
+            for t in [RedisInfo(), RedisSlowlog(), RedisClusterInfo(), RedisKeyAnalysis(), RedisSentinel()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Redis 增强工具加载失败: {e}")
+
         logger.info(f"工具注册完成: {registered} 个工具")
 
     def register_module(self, name: str, module: Any):

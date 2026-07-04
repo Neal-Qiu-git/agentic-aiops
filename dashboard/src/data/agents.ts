@@ -40,19 +40,22 @@ export const agents: Agent[] = [
 
 // Tool categories (v4.3.0 - 115 tools)
 export const toolCategories = [
-  { name: '可观测性', icon: '🔭', count: 22, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'APM (4)', 'OTel (1)'], color: '#3b82f6' },
-  { name: '数据库', icon: '🗄️', count: 16, tools: ['MySQL', 'Redis', 'PostgreSQL', 'MongoDB', 'ES', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Kafka'], color: '#8b5cf6' },
+  { name: '可观测性', icon: '🔭', count: 24, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'APM (4)', 'OTel (1)'], color: '#3b82f6' },
+  { name: '数据库', icon: '🗄️', count: 21, tools: ['MySQL', 'Redis', 'PostgreSQL', 'MongoDB', 'ES', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Kafka'], color: '#8b5cf6' },
   { name: '云平台', icon: '☁️', count: 4, tools: ['AWS', 'Azure', '阿里云', '腾讯云', '华为云'], color: '#f97316' },
-  { name: '容器/K8s', icon: '🐳', count: 20, tools: ['K8s (12)', 'Docker (7)', 'Kubectl (1)'], color: '#0ea5e9' },
+  { name: '容器/K8s', icon: '🐳', count: 27, tools: ['K8s (12)', 'Docker (7)', 'Kubectl (1)'], color: '#0ea5e9' },
   { name: '中间件', icon: '📦', count: 11, tools: ['Nginx', 'Tomcat', 'RabbitMQ', 'Kafka', 'TongWeb', 'Pulsar', 'NATS', 'Traefik', 'HAProxy', 'Consul'], color: '#a855f7' },
-  { name: '安全', icon: '🔒', count: 6, tools: ['Trivy', 'Falco', 'OPA', 'kube-bench', 'Kubescape'], color: '#ef4444' },
+  { name: '安全', icon: '🔒', count: 7, tools: ['Trivy', 'Falco', 'OPA', 'kube-bench', 'Kubescape'], color: '#ef4444' },
   { name: 'CI/CD', icon: '🚀', count: 3, tools: ['Jenkins', 'GitLab CI', 'GitHub Actions'], color: '#10b981' },
   { name: 'GitOps', icon: '🔀', count: 5, tools: ['ArgoCD (3)', 'FluxCD (2)'], color: '#8b5cf6' },
   { name: 'IaC', icon: '🏗️', count: 6, tools: ['Terraform (6)'], color: '#64748b' },
   { name: 'FinOps', icon: '💰', count: 4, tools: ['Kubecost (2)', 'AWS Cost', 'Azure Cost'], color: '#14b8a6' },
-  { name: '网络', icon: '🌐', count: 5, tools: ['Firewall', 'LoadBalancer', 'DNS', 'NetworkDiag', 'VPN'], color: '#06b6d4' },
+  { name: '网络', icon: '🌐', count: 6, tools: ['Firewall', 'LoadBalancer', 'DNS', 'NetworkDiag', 'VPN'], color: '#06b6d4' },
   { name: '虚拟化', icon: '🖥️', count: 3, tools: ['VMware', 'KVM', 'Proxmox'], color: '#84cc16' },
   { name: '远程管理', icon: '🪟', count: 3, tools: ['WinRM Exec', 'EventLog', 'Service'], color: '#06b6d4' },
+  { name: '密钥管理', icon: '🔐', count: 6, tools: ['Vault (6)'], color: '#ef4444' },
+  { name: '配置管理', icon: '⚙️', count: 3, tools: ['Ansible AdHoc', 'Playbook', 'Inventory'], color: '#f59e0b' },
+  { name: '代码质量', icon: '🔍', count: 2, tools: ['SonarQube Scan', 'Status'], color: '#10b981' },
   { name: '日志', icon: '📋', count: 1, tools: ['LogSearch'], color: '#f59e0b' },
   { name: 'SSH', icon: '🔑', count: 3, tools: ['SSH Exec', 'Test', 'SystemInfo'], color: '#10b981' },
 ];
