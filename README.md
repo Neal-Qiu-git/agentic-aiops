@@ -8,50 +8,53 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-4.0-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-4.1-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
 [![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
-[![Stars](https://img.shields.io/github/stars/neal4752/agentic-aiops?style=flat-square)]()
 
-[English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/)
+[English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)
 
 </div>
 
 ---
 
-## What is Agentic AIOps?
+## 📖 什么是 Agentic AIOps？
 
-**Agentic AIOps** is an AI-native operations platform that combines Multi-Agent collaboration, Memory, Knowledge, Workflow, Event Bus, and Human Approval into a unified operational system.
+**Agentic AIOps** 是一个 AI 原生的运维平台，融合了多智能体协作、记忆系统、知识库、工作流引擎、事件总线和人工审批，构建统一的智能运维体系。
 
-> **It's not another AI Agent — it's an autonomous operations platform.**
+> **它不是又一个 AI Agent —— 它是一个自治运维平台。**
 
-| Framework | Purpose | MCP | Memory | Workflow | Approval |
-|-----------|---------|:---:|:------:|:--------:|:--------:|
-| LangGraph | General Agent | ❌ | ✅ | ✅ | ❌ |
-| CrewAI | General Agent | ❌ | ❌ | ❌ | ❌ |
-| AutoGPT | General Agent | ❌ | ❌ | ❌ | ❌ |
-| OpenHands | Dev Agent | ❌ | ❌ | ❌ | ❌ |
-| **Agentic AIOps** | **Ops Agent** | ✅ | ✅ | ✅ | ✅ |
+### 与同类框架对比
 
----
-
-## ✨ Features
-
-- 🤖 **12 Specialized Agents** — Linux, K8s, DB, Log, Monitor, Security, SRE, Cost, Incident, DevOps, CMDB, Planner
-- 🔄 **ReAct Lifecycle** — Observe → Reason → Plan → Act → Verify → Learn
-- 🔌 **MCP Marketplace** — 20+ tools, plugin architecture
-- 🧠 **5-Type Memory** — Working, Short-term, Long-term, Semantic, Episodic
-- 📚 **Knowledge RAG** — Runbooks, docs, historical cases
-- ⚡ **Event Bus** — Decoupled agent collaboration
-- 🚦 **Workflow Engine** — YAML-based automation
-- 👤 **Human Approval** — Risk-based workflow approval
-- 📡 **REST API** — OpenAPI specification
-- 🖥️ **CLI** — Full-featured command line
+| 框架 | 定位 | MCP | 记忆 | 工作流 | 审批 | 前端 |
+|------|------|:---:|:----:|:------:|:----:|:----:|
+| LangGraph | 通用Agent | ❌ | ✅ | ✅ | ❌ | ❌ |
+| CrewAI | 通用Agent | ❌ | ❌ | ❌ | ❌ | ❌ |
+| AutoGPT | 通用Agent | ❌ | ❌ | ❌ | ❌ | ❌ |
+| OpenHands | 开发Agent | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Agentic AIOps** | **运维Agent** | ✅ | ✅ | ✅ | ✅ | 🚧 |
 
 ---
 
-## 📸 Demo
+## ✨ 核心特性
+
+- 🤖 **12 专业智能体** — Linux、K8s、数据库、日志、监控、安全、SRE、成本、事件、DevOps、CMDB、规划师
+- 🔄 **ReAct 生命周期** — 观察 → 推理 → 计划 → 执行 → 验证 → 学习
+- 🔌 **MCP 工具市场** — 20+ 工具，插件化架构
+- 🧠 **5 类记忆系统** — 工作记忆、短期、长期、语义、情景
+- 📚 **知识库 RAG** — Runbook、文档、历史案例语义检索
+- ⚡ **事件总线** — 解耦式智能体协作
+- 🚦 **工作流引擎** — YAML 声明式自动化编排
+- 👤 **人工审批** — 基于风险等级的审批流
+- 📡 **REST API** — OpenAPI 规范
+- 🖥️ **CLI** — 全功能命令行
+- 🐳 **Docker/K8s** — 一键部署
+- 🔒 **安全引擎** — 命令黑名单、审计日志、敏感路径保护
+
+---
+
+## 📸 演示
 
 ```
 $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
@@ -72,24 +75,22 @@ $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
 ╚═══════════════════════════════════════════════════════════╝
 ```
 
-> 📹 **[Watch Full Demo Video](docs/demo.md)**
-
 ---
 
-## 🏗️ Architecture
+## 🏗️ 架构
 
 ```
                          ┌─────────────────────┐
-                         │      User Layer     │
+                         │      用户层         │
                          │  CLI │ API │ Chat   │
                          └──────────┬──────────┘
                                     │
                          ┌──────────▼──────────┐
-                         │     Event Bus       │
+                         │     事件总线        │
                          └──────────┬──────────┘
                                     │
                          ┌──────────▼──────────┐
-                         │   Planner Agent     │
+                         │   规划师 Agent      │
                          └──────────┬──────────┘
                                     │
        ┌──────────┬────────┬────────┼────────┬──────────┐
@@ -103,11 +104,11 @@ $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
        └──────────┴────────┴────┬───┴────────┴──────────┘
                                 │
                      ┌──────────▼──────────┐
-                     │   MCP Marketplace   │
+                     │   MCP 工具市场      │
                      └──────────┬──────────┘
                                 │
                      ┌──────────▼──────────┐
-                     │ Memory │ Knowledge  │
+                     │  记忆  │  知识库     │
                      └─────────────────────┘
 ```
 
@@ -115,38 +116,40 @@ $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
 
 ---
 
-## 📊 Support Matrix
+## ⚡ 快速开始
 
-| Platform | Database | Monitoring | Cloud |
-|----------|----------|------------|-------|
-| Linux ✅ | MySQL ✅ | Prometheus ✅ | AWS ✅ |
-| Docker ✅ | Redis ✅ | Grafana ✅ | Aliyun ✅ |
-| K8s ✅ | PostgreSQL ✅ | Loki 🚧 | Tencent ✅ |
-| | MongoDB ✅ | | |
-| | Elasticsearch ✅ | | |
-
----
-
-## ⚡ Quick Start
+### 方式一：一键脚本（推荐）
 
 ```bash
-# Install
+# Linux / macOS
+curl -sL https://gitee.com/neal4752/agentic-aiops/raw/main/deploy.sh -o deploy.sh
+chmod +x deploy.sh
+./deploy.sh
+```
+
+### 方式二：Docker Compose
+
+```bash
+git clone https://gitee.com/neal4752/agentic-aiops.git
+cd agentic-aiops
+cp .env.example .env
+# 编辑 .env 填入 API Key
+docker compose up -d
+```
+
+### 方式三：pip 安装
+
+```bash
 pip install agentic-aiops
 
-# Configure
-export AIOPS_AI_API_KEY=your-key
+# 配置
+export AIOPS_AI_API_KEY=your-api-key
 
-# Run
+# 运行诊断
 aiops diagnose --host 10.0.0.1 --symptom "CPU 高"
 ```
 
-### Docker
-
-```bash
-docker run -it --rm -e AIOPS_AI_API_KEY=your-key agentic-aiops
-```
-
-### Kubernetes
+### 方式四：Kubernetes
 
 ```bash
 helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
@@ -156,126 +159,157 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 
 ---
 
-## 🤖 Supported Agents
+## 📊 支持矩阵
 
-| Agent | Description | Status |
-|-------|-------------|:------:|
-| 🐧 Linux | System diagnostics | ✅ |
-| ☸️ K8s | Kubernetes operations | ✅ |
-| 🗄️ DB | Database diagnostics | ✅ |
-| 📋 Log | Log analysis | ✅ |
-| 📊 Monitor | Monitoring analysis | ✅ |
-| 🔒 Security | Security scanning | ✅ |
-| 🏥 SRE | SLI/SLO/Error Budget | ✅ |
-| 💰 Cost | Cost optimization | ✅ |
-| 🚨 Incident | Incident management | ✅ |
-| 🚀 DevOps | CI/CD operations | ✅ |
+| 平台 | 数据库 | 监控 | 云 |
+|------|--------|------|-----|
+| Linux ✅ | MySQL ✅ | Prometheus ✅ | AWS ✅ |
+| Docker ✅ | Redis ✅ | Grafana ✅ | 阿里云 ✅ |
+| K8s ✅ | PostgreSQL ✅ | Loki 🚧 | 腾讯云 ✅ |
+| | MongoDB ✅ | | |
+| | Elasticsearch ✅ | | |
 
 ---
 
-## 🤖 Supported LLM
+## 🤖 支持的智能体
 
-| Provider | Models |
-|----------|--------|
+| 智能体 | 描述 | 状态 |
+|--------|------|:----:|
+| 🐧 Linux | 系统诊断 | ✅ |
+| ☸️ K8s | Kubernetes 运维 | ✅ |
+| 🗄️ DB | 数据库诊断 | ✅ |
+| 📋 Log | 日志分析 | ✅ |
+| 📊 Monitor | 监控分析 | ✅ |
+| 🔒 Security | 安全扫描 | ✅ |
+| 🏥 SRE | SLI/SLO/错误预算 | ✅ |
+| 💰 Cost | 成本优化 | ✅ |
+| 🚨 Incident | 事件管理 | ✅ |
+| 🚀 DevOps | CI/CD 运维 | ✅ |
+| 📦 CMDB | 配置管理 | ✅ |
+| 📋 Planner | 任务规划 | ✅ |
+
+---
+
+## 🤖 支持的大模型
+
+| 提供商 | 模型 |
+|--------|------|
 | DeepSeek | deepseek-chat |
 | OpenAI | gpt-4o, gpt-4-turbo |
 | Anthropic | claude-3-opus, claude-3-sonnet |
-| Qwen | qwen-max, qwen-plus |
+| 通义千问 | qwen-max, qwen-plus |
 | Ollama | llama3, mistral |
-| OpenRouter | Multiple models |
+| OpenRouter | 多种模型 |
 
 ---
 
-## 🗺️ Roadmap
+## 🗺️ 路线图
 
-### v1.x — Foundation ✅
+### v1.x — 基础 ✅
+- [x] 核心 Agent（Linux、K8s、DB）
+- [x] CLI 界面
+- [x] MCP 工具系统
+- [x] 基础记忆
 
-- [x] Core Agents (Linux, K8s, DB)
-- [x] CLI Interface
-- [x] MCP Tool System
-- [x] Basic Memory
+### v2.x — 智能 ✅
+- [x] 5 类记忆系统
+- [x] 知识库 RAG
+- [x] 工作流引擎
+- [x] 审批系统
 
-### v2.x — Intelligence ✅
-
-- [x] Memory System (5 types)
-- [x] Knowledge Base
-- [x] Workflow Engine
-- [x] Approval System
-
-### v3.x — Platform 🚧
-
+### v3.x — 平台 🚧
+- [x] REST API
+- [x] Docker/K8s 部署
 - [ ] Web Dashboard
-- [ ] Workflow Designer
-- [ ] Plugin Marketplace
-- [ ] REST API Enhancement
+- [ ] 可视化工作流设计器
 
-### v4.x — Enterprise 📋
-
-- [ ] Multi-Cluster Support
-- [ ] RBAC
-- [ ] Audit Log
-- [ ] High Availability
-
-### v5.x — Cloud Native 📋
-
-- [ ] Voice Agent
-- [ ] Auto-Remediation
-- [ ] Self-Healing Systems
+### v4.x — 企业 📋
+- [ ] 多集群支持
+- [ ] RBAC 权限
+- [ ] 审计日志
+- [ ] 高可用部署
 
 ---
 
-## 🏢 Enterprise Features
+## 📁 项目结构
 
-- 🔐 **RBAC** — Role-based access control
-- 📋 **Audit Log** — Complete operation history
-- ✅ **Approval** — Risk-based workflow approval
-- 🔔 **Webhook** — Feishu, DingTalk, Slack, Email
-- 🔌 **Plugin** — Extensible architecture
-- 📡 **REST API** — OpenAPI specification
-- 🌐 **Multi-Cluster** — Cross-cluster management
-- 🔄 **High Availability** — HA deployment
-
----
-
-## 📚 Documentation
-
-- [Architecture](docs/architecture.md)
-- [Installation](docs/installation.md)
-- [Agents](docs/agents.md)
-- [Workflow](docs/workflow.md)
-- [Memory](docs/memory.md)
-- [Knowledge](docs/knowledge.md)
-- [Approval](docs/approval.md)
-- [MCP Tools](docs/mcp.md)
-- [Security](docs/security.md)
-- [API](docs/api.md)
-- [FAQ](docs/faq.md)
-- [ADR](docs/adr/)
-
----
-
-## 📁 Examples
-
-| Example | Description |
-|---------|-------------|
-| [cpu-high](examples/cpu-high/) | CPU usage diagnosis |
-| [memory-leak](examples/memory-leak/) | Memory leak detection |
-| [pod-crash](examples/pod-crash/) | K8s Pod troubleshooting |
-| [redis-timeout](examples/redis-timeout/) | Redis connection issues |
-| [mysql-slow](examples/mysql-slow/) | MySQL slow query analysis |
-| [disk-full](examples/disk-full/) | Disk space diagnosis |
+```
+agentic-aiops/
+├── aiops/                  # 核心代码
+│   ├── agents/             # 12个专业智能体
+│   ├── analyzers/          # 分析器
+│   ├── api/                # REST API
+│   ├── approval/           # 审批系统
+│   ├── collectors/         # 数据采集
+│   ├── core/               # 核心引擎
+│   ├── eventbus/           # 事件总线
+│   ├── knowledge/          # 知识库
+│   ├── mcp/                # MCP 工具
+│   ├── memory/             # 记忆系统
+│   ├── modules/            # 功能模块
+│   ├── planner/            # 规划引擎
+│   ├── plugins/            # 插件系统
+│   ├── rag/                # RAG 检索
+│   ├── reporters/          # 报告生成
+│   ├── tools/              # 工具集
+│   └── workflow/           # 工作流引擎
+├── data/                   # 数据文件
+│   ├── knowledge/          # 知识库数据
+│   └── memory/             # 记忆存储
+├── docs/                   # 文档
+├── examples/               # 场景示例
+├── plugins/                # 外部插件
+├── runbooks/               # 运维手册
+├── scripts/                # 脚本工具
+├── tests/                  # 测试
+├── deploy.sh               # 一键部署
+├── docker-compose.yml      # Docker 编排
+├── .env.example            # 环境变量模板
+├── config.example.yaml     # 配置模板
+└── CHANGELOG.md            # 版本历史
+```
 
 ---
 
-## 🤝 Contributing
+## 📚 文档
 
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+- [架构设计](docs/architecture.md)
+- [安装部署](docs/installation.md)
+- [智能体](docs/agents.md)
+- [工作流](docs/workflow.md)
+- [记忆系统](docs/memory.md)
+- [知识库](docs/knowledge.md)
+- [审批系统](docs/approval.md)
+- [MCP 工具](docs/mcp.md)
+- [安全机制](docs/security.md)
+- [API 文档](docs/api.md)
+- [常见问题](docs/faq.md)
+- [ADR 决策记录](docs/adr/)
+
+---
+
+## 📁 场景示例
+
+| 示例 | 描述 |
+|------|------|
+| [cpu-high](examples/cpu-high/) | CPU 使用率诊断 |
+| [memory-leak](examples/memory-leak/) | 内存泄漏检测 |
+| [pod-crash](examples/pod-crash/) | K8s Pod 故障排查 |
+| [redis-timeout](examples/redis-timeout/) | Redis 连接超时 |
+| [mysql-slow](examples/mysql-slow/) | MySQL 慢查询分析 |
+| [disk-full](examples/disk-full/) | 磁盘空间诊断 |
+
+---
+
+## 🤝 贡献
+
+见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 [![Contributors](https://contrib.rocks/image?repo=neal4752/agentic-aiops)]()
 
 ---
 
-## 📄 License
+## 📄 许可证
 
 [MIT License](LICENSE)
 
@@ -283,6 +317,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 <div align="center">
 
-**If this project is helpful, please give it a ⭐ Star!**
+**如果项目对你有帮助，请点个 ⭐ Star 支持！**
 
 </div>

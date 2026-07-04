@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  aiops:
+    build: .
+    container_name: agentic-aiops
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - AIOPS_AI_API_KEY=${AIOPS_AI_API_KEY}
+      - AIOPS_AI_PROVIDER=${AIOPS_AI_PROVIDER:-deepseek}
+      - AIOPS_AI_MODEL=${AIOPS_AI_MODEL:-deepseek-chat}
+      - AIOPS_SERVERS=${AIOPS_SERVERS:-[]}
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+      - ./runbooks:/app/runbooks:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - aiops-net
+
+networks:
+  aiops-net:
+    driver: bridge
