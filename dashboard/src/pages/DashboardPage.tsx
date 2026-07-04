@@ -24,6 +24,13 @@ export default function DashboardPage() {
           </div>
         </div>
         <div className="stat-card">
+          <div className="stat-icon" style={{background:'var(--glow-purple)'}}>🔌</div>
+          <div>
+            <div className="stat-value">{systemHealth.totalTools}</div>
+            <div className="stat-label">MCP 工具</div>
+          </div>
+        </div>
+        <div className="stat-card">
           <div className="stat-icon" style={{background:'var(--glow-green)'}}>⚡</div>
           <div>
             <div className="stat-value">{systemHealth.totalTasks.toLocaleString()}</div>
@@ -31,17 +38,10 @@ export default function DashboardPage() {
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon" style={{background:'var(--glow-purple)'}}>✅</div>
+          <div className="stat-icon" style={{background:'rgba(245,158,11,0.15)'}}>✅</div>
           <div>
             <div className="stat-value">{systemHealth.successRate}%</div>
             <div className="stat-label">成功率</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon" style={{background:'rgba(245,158,11,0.15)'}}>⏱️</div>
-          <div>
-            <div className="stat-value">{systemHealth.avgResponseTime}</div>
-            <div className="stat-label">平均响应</div>
           </div>
         </div>
       </div>
