@@ -8,10 +8,10 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-3.2-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-5.3-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
+[![MCP](https://img.shields.io/badge/MCP-148%2B_Tools-FF6B35?style=flat-square)]()
 
 English | [中文](README.md)
 
