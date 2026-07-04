@@ -32,6 +32,11 @@ class ToolCategory(Enum):
     VAULT = "vault"
     MESSAGE_QUEUE = "message_queue"
     REVERSE_PROXY = "reverse_proxy"
+    # v5.3.0 补全 - 工具分类
+    REMOTE = "remote"
+    MIDDLEWARE = "middleware"
+    NETWORK = "network"
+    SYSTEM = "system"
 
 
 @dataclass
