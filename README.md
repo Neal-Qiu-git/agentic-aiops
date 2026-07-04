@@ -57,7 +57,7 @@
 
 ## 📸 在线演示
 
-> **[🚀 点击查看 Dashboard](https://neal4752.gitee.io/agentic-aiops/dashboard-dist/)** — 深空科技风可视化运维平台
+> **[🚀 点击查看 Dashboard 预览](https://gitee.com/neal4752/agentic-aiops/raw/main/preview.html)** — 深空科技风可视化运维平台
 
 ### 🕸️ Agent 网络拓扑
 
