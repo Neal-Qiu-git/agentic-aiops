@@ -77,3 +77,4 @@ htmlcov/
 AIOPS_*
 node_modules/
 dashboard/node_modules/
+!aiops/web/index.html

@@ -305,6 +305,55 @@ def tools(ctx, host: Optional[str], user: str, port: int):
 
 
 @main.command()
+@click.option("--host", "-h", default="0.0.0.0", help="监听地址")
+@click.option("--port", "-p", default=8000, help="监听端口")
+@click.option("--no-browser", is_flag=True, help="不自动打开浏览器")
+def serve(host, port, no_browser):
+    """启动 Web Dashboard（API + 前端一体化）"""
+    import os
+    import webbrowser
+    from threading import Timer
+    from .api.server import run_server, WEB_DIR
+
+    # 检查 Dashboard 文件是否存在
+    if not os.path.isfile(os.path.join(WEB_DIR, "index.html")):
+        console.print("[yellow]⚠ Dashboard 未构建，正在自动构建...[/]")
+        dashboard_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dashboard")
+        if os.path.isdir(dashboard_dir):
+            os.system(f"cd {dashboard_dir} && npm run build 2>&1")
+            # 复制到 web 目录
+            dist_dir = os.path.join(dashboard_dir, "dist")
+            if os.path.isdir(dist_dir):
+                os.system(f"cp -r {dist_dir}/* {WEB_DIR}/")
+                console.print("[green]✓ Dashboard 构建完成[/]")
+            else:
+                console.print("[red]✗ Dashboard 构建失败[/]")
+                return
+        else:
+            console.print("[red]✗ dashboard 目录不存在[/]")
+            return
+
+    # 启动服务器
+    url = f"http://{'localhost' if host == '0.0.0.0' else host}:{port}"
+    console.print(Panel(
+        f"[bold green]🚀 Agentic AIOps Dashboard 已启动[/]\n\n"
+        f"  🌐 访问地址: [link={url}]{url}[/link]\n"
+        f"  📡 API 地址: [link={url}/api/v1/health]{url}/api/v1/health[/link]\n"
+        f"  📊 监控页面: [link={url}/#/monitoring]{url}/#/monitoring[/link]\n"
+        f"  🚀 部署页面: [link={url}/#/deployment]{url}/#/deployment[/link]\n\n"
+        f"  按 Ctrl+C 停止服务",
+        title="🤖 Agentic AIOps",
+        border_style="blue"
+    ))
+
+    # 自动打开浏览器
+    if not no_browser:
+        Timer(1.5, lambda: webbrowser.open(url)).start()
+
+    run_server(host=host, port=port)
+
+
+@main.command()
 @click.pass_context
 def version(ctx):
     """显示版本信息"""

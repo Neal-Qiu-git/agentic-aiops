@@ -1,29 +1,32 @@
-"""REST API Server - Enhanced with CORS + Monitoring + Deployment endpoints"""
+"""REST API Server - Enhanced with CORS + Monitoring + Deployment + Static Dashboard"""
 import json
 import logging
 import time
+import os
+import mimetypes
 from typing import Dict, Any, Optional
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
 logger = logging.getLogger(__name__)
 
+# Dashboard 静态文件目录
+WEB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "web")
+
 
 class AIOpsHandler(BaseHTTPRequestHandler):
-    """AIOps HTTP Handler with CORS support"""
+    """AIOps HTTP Handler with CORS + Static file serving"""
 
     def __init__(self, *args, engine=None, **kwargs):
         self.engine = engine
         super().__init__(*args, **kwargs)
 
     def _cors_headers(self):
-        """添加 CORS 头"""
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
 
     def do_OPTIONS(self):
-        """处理 CORS 预检请求"""
         self.send_response(200)
         self._cors_headers()
         self.end_headers()
@@ -33,45 +36,13 @@ class AIOpsHandler(BaseHTTPRequestHandler):
         path = parsed.path
         params = parse_qs(parsed.query)
 
-        # ===== 原有端点 =====
-        if path == "/api/v1/health":
-            self._respond(200, {"status": "healthy"})
-        elif path == "/api/v1/version":
-            from aiops import __version__
-            self._respond(200, {"version": __version__})
-        elif path == "/api/v1/tools":
-            self._list_tools()
-        elif path == "/api/v1/agents":
-            self._list_agents()
+        # ===== API 路由 =====
+        if path.startswith("/api/"):
+            self._handle_api(path, params)
+            return
 
-        # ===== 监控端点 =====
-        elif path == "/api/v1/monitoring/summary":
-            self._monitoring_summary(params)
-        elif path == "/api/v1/monitoring/metrics":
-            self._monitoring_metrics(params)
-        elif path == "/api/v1/monitoring/alerts":
-            self._monitoring_alerts(params)
-        elif path == "/api/v1/monitoring/targets":
-            self._monitoring_targets(params)
-
-        # ===== 部署端点 =====
-        elif path == "/api/v1/deployment/summary":
-            self._deployment_summary(params)
-        elif path == "/api/v1/deployment/nodes":
-            self._deployment_nodes(params)
-        elif path == "/api/v1/deployment/pods":
-            self._deployment_pods(params)
-        elif path == "/api/v1/deployment/deployments":
-            self._deployment_deployments(params)
-        elif path == "/api/v1/deployment/events":
-            self._deployment_events(params)
-        elif path == "/api/v1/deployment/namespaces":
-            self._deployment_namespaces(params)
-        elif path == "/api/v1/deployment/services":
-            self._deployment_services(params)
-
-        else:
-            self._respond(404, {"error": "Not found"})
+        # ===== 静态文件服务 =====
+        self._serve_static(path)
 
     def do_POST(self):
         parsed = urlparse(self.path)
@@ -97,6 +68,98 @@ class AIOpsHandler(BaseHTTPRequestHandler):
         else:
             self._respond(404, {"error": "Not found"})
 
+    # ===== 静态文件服务 =====
+    def _serve_static(self, path: str):
+        """serve dashboard 静态文件"""
+        # 移除查询参数
+        path = path.split("?")[0]
+
+        # 默认路径 -> index.html
+        if path == "/" or path == "":
+            path = "/index.html"
+
+        # 映射到 web 目录
+        file_path = os.path.join(WEB_DIR, path.lstrip("/"))
+
+        # 安全检查：防止目录遍历
+        real_web = os.path.realpath(WEB_DIR)
+        real_file = os.path.realpath(file_path)
+        if not real_file.startswith(real_web):
+            self._respond(403, {"error": "Forbidden"})
+            return
+
+        # 检查文件是否存在
+        if os.path.isfile(file_path):
+            self._send_file(file_path)
+        else:
+            # SPA fallback: 不存在的路径返回 index.html（支持前端路由）
+            index_path = os.path.join(WEB_DIR, "index.html")
+            if os.path.isfile(index_path):
+                self._send_file(index_path)
+            else:
+                self._respond(404, {"error": "Not found"})
+
+    def _send_file(self, file_path: str):
+        """发送静态文件"""
+        mime_type, _ = mimetypes.guess_type(file_path)
+        if not mime_type:
+            mime_type = "application/octet-stream"
+
+        try:
+            with open(file_path, "rb") as f:
+                content = f.read()
+
+            self.send_response(200)
+            self.send_header("Content-Type", mime_type)
+            self.send_header("Content-Length", str(len(content)))
+            # 静态资源缓存1小时，HTML不缓存
+            if file_path.endswith(".html"):
+                self.send_header("Cache-Control", "no-cache")
+            else:
+                self.send_header("Cache-Control", "public, max-age=3600")
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(content)
+        except Exception as e:
+            logger.error(f"发送文件失败: {e}")
+            self._respond(500, {"error": "Internal server error"})
+
+    # ===== API 路由分发 =====
+    def _handle_api(self, path: str, params: dict):
+        if path == "/api/v1/health":
+            self._respond(200, {"status": "healthy", "dashboard": True})
+        elif path == "/api/v1/version":
+            from aiops import __version__
+            self._respond(200, {"version": __version__})
+        elif path == "/api/v1/tools":
+            self._list_tools()
+        elif path == "/api/v1/agents":
+            self._list_agents()
+        elif path == "/api/v1/monitoring/summary":
+            self._monitoring_summary(params)
+        elif path == "/api/v1/monitoring/metrics":
+            self._monitoring_metrics(params)
+        elif path == "/api/v1/monitoring/alerts":
+            self._monitoring_alerts(params)
+        elif path == "/api/v1/monitoring/targets":
+            self._monitoring_targets(params)
+        elif path == "/api/v1/deployment/summary":
+            self._deployment_summary(params)
+        elif path == "/api/v1/deployment/nodes":
+            self._deployment_nodes(params)
+        elif path == "/api/v1/deployment/pods":
+            self._deployment_pods(params)
+        elif path == "/api/v1/deployment/deployments":
+            self._deployment_deployments(params)
+        elif path == "/api/v1/deployment/events":
+            self._deployment_events(params)
+        elif path == "/api/v1/deployment/namespaces":
+            self._deployment_namespaces(params)
+        elif path == "/api/v1/deployment/services":
+            self._deployment_services(params)
+        else:
+            self._respond(404, {"error": "API not found"})
+
     def _respond(self, status: int, data: Dict[str, Any]):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -114,7 +177,6 @@ class AIOpsHandler(BaseHTTPRequestHandler):
 
     def _monitoring_metrics(self, params):
         query = params.get("query", ["cpu"])[0]
-        is_range = params.get("range", ["false"])[0] == "true"
         try:
             from aiops.tools.prometheus_tools import _demo_cpu_data, _demo_memory_data
             if "mem" in query.lower():
@@ -153,7 +215,7 @@ class AIOpsHandler(BaseHTTPRequestHandler):
                 "total_nodes": 4, "ready_nodes": 4, "total_namespaces": 7,
             }})
         except Exception:
-            self._respond(200, {"status": "demo", "data": {"total_pods": 0, "running_pods": 0}})
+            self._respond(200, {"status": "demo", "data": {"total_pods": 0}})
 
     def _deployment_nodes(self, params):
         try:
@@ -236,8 +298,7 @@ class AIOpsHandler(BaseHTTPRequestHandler):
         if not host:
             self._respond(400, {"error": "Missing host"})
             return
-        result = {"status": "completed", "host": host, "symptom": symptom, "root_cause": "Analysis completed", "confidence": 0.85}
-        self._respond(200, result)
+        self._respond(200, {"status": "completed", "host": host, "symptom": symptom, "root_cause": "Analysis completed", "confidence": 0.85})
 
     def _execute_tool(self, data):
         tool_name = data.get("tool")
