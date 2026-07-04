@@ -8,7 +8,7 @@ class MySQLQueryTool(BaseTool):
     def execute(self, query, host="127.0.0.1", user="root", password="", **kw):
         cmd = f"mysql -h {host} -u {user}"
         if password: cmd += f" -p{password}"
-        cmd += f" -e "{query}""
+        cmd += f' -e "{query}"'
         try:
             r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
             return ToolResult(success=(r.returncode==0), output=r.stdout.strip()[:5000])

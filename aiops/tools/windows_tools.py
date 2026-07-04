@@ -56,7 +56,7 @@ class WinRMEventLog(BaseTool):
 
     def execute(self, host: str, user: str, password: str, log_name: str = "System", level: str = "Error", count: int = 50, **kwargs) -> ToolResult:
         ps_cmd = f'Get-EventLog -LogName {log_name} -EntryType {level} -Newest {count} | Select-Object TimeGenerated,Source,Message | ConvertTo-Json'
-        cmd = f"ssh {user}@{host} 'powershell -Command "{ps_cmd}"'"
+        cmd = f'ssh {user}@{host} \'powershell -Command "{ps_cmd}"\''
         try:
             r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
             return ToolResult(success=(r.returncode == 0), output=r.stdout.strip()[:5000], error=r.stderr.strip() if r.returncode != 0 else "")
@@ -85,7 +85,7 @@ class WinRMService(BaseTool):
     def execute(self, host: str, user: str, password: str, service: str, action: str = "status", **kwargs) -> ToolResult:
         action_map = {"status": "Get-Service", "start": "Start-Service", "stop": "Stop-Service", "restart": "Restart-Service"}
         ps_cmd = f'{action_map.get(action, "Get-Service")} -Name {service} | ConvertTo-Json'
-        cmd = f"ssh {user}@{host} 'powershell -Command "{ps_cmd}"'"
+        cmd = f'ssh {user}@{host} \'powershell -Command "{ps_cmd}"\''
         try:
             r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
             return ToolResult(success=(r.returncode == 0), output=r.stdout.strip()[:5000], error=r.stderr.strip() if r.returncode != 0 else "")

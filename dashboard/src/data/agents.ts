@@ -38,7 +38,7 @@ export const agents: Agent[] = [
   { id: 'copilot', name: 'AI Copilot', icon: '🤖', description: 'AI 对话助手 · 自然语言运维', status: 'active', color: '#3b82f6', tasks: 2890, successRate: 96.8, avgResponseTime: '1.0s', category: 'core' },
 ];
 
-// Tool categories (v4.3.0 - 115 tools)
+// Tool categories (v5.3.0 - 148+ tools)
 export const toolCategories = [
   { name: '可观测性', icon: '🔭', count: 24, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'APM (4)', 'OTel (1)'], color: '#3b82f6' },
   { name: '数据库', icon: '🗄️', count: 21, tools: ['MySQL', 'Redis', 'PostgreSQL', 'MongoDB', 'ES', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Kafka'], color: '#8b5cf6' },

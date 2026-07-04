@@ -50,7 +50,7 @@ class TomcatTool(BaseTool):
         if action == "status":
             return _mw_cmd(f"ps aux | grep -i tomcat | grep -v grep; ls {catalina_home}/logs/catalina.out 2>/dev/null && tail -5 {catalina_home}/logs/catalina.out")
         elif action == "threads":
-            return _mw_cmd(f"jstack $(pgrep -f tomcat) 2>/dev/null | grep -c 'TIMED_WAITING\|WAITING\|RUNNABLE' || echo 'Tomcat not running'")
+            return _mw_cmd(f"jstack $(pgrep -f tomcat) 2>/dev/null | grep -c 'TIMED_WAITING\\|WAITING\\|RUNNABLE' || echo 'Tomcat not running'")
         elif action == "heap":
             return _mw_cmd(f"jmap -heap $(pgrep -f tomcat) 2>/dev/null || echo 'Cannot get heap info'")
         elif action == "logs":
@@ -132,5 +132,5 @@ class TongWebTool(BaseTool):
         if action == "status":
             return _mw_cmd(f"ps aux | grep -i tongweb | grep -v grep; {tongweb_home}/bin/startup.sh status 2>/dev/null")
         elif action == "threads":
-            return _mw_cmd(f"jstack $(pgrep -f TongWeb) 2>/dev/null | grep -c 'RUNNABLE\|WAITING' || echo 'TongWeb not running'")
+            return _mw_cmd(f"jstack $(pgrep -f TongWeb) 2>/dev/null | grep -c 'RUNNABLE\\|WAITING' || echo 'TongWeb not running'")
         return ToolResult(success=False, error="Invalid action")

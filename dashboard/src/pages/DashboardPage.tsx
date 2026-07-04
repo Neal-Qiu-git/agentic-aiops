@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { agents, toolCategories } from '../data/agents';
+import { toolCategories } from '../data/agents';
 import { demoAgentData, demoConnections, type AgentData } from '../api';
 
 // ══════════════════════════════════════════

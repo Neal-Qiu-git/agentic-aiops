@@ -1,18 +1,32 @@
+import { lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
-import DashboardPage from './pages/DashboardPage';
-import WorkflowsPage from './pages/WorkflowsPage';
-import EventsPage from './pages/EventsPage';
-import ApiDocsPage from './pages/ApiDocsPage';
-import MonitoringPage from './pages/MonitoringPage';
-import DeploymentPage from './pages/DeploymentPage';
-import SLOPage from './pages/SLOPage';
-import AlertPage from './pages/AlertPage';
-import CostPage from './pages/CostPage';
-import SecurityPage from './pages/SecurityPage';
-import EnvironmentPage from './pages/EnvironmentPage';
-import DataSourcePage from './pages/DataSourcePage';
-import AuditLogPage from './pages/AuditLogPage';
-import SettingsPage from './pages/SettingsPage';
+
+// 懒加载所有页面组件 — 首屏只加载 DashboardPage
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const EnvironmentPage = lazy(() => import('./pages/EnvironmentPage'));
+const MonitoringPage = lazy(() => import('./pages/MonitoringPage'));
+const SLOPage = lazy(() => import('./pages/SLOPage'));
+const AlertPage = lazy(() => import('./pages/AlertPage'));
+const DeploymentPage = lazy(() => import('./pages/DeploymentPage'));
+const WorkflowsPage = lazy(() => import('./pages/WorkflowsPage'));
+const EventsPage = lazy(() => import('./pages/EventsPage'));
+const SecurityPage = lazy(() => import('./pages/SecurityPage'));
+const CostPage = lazy(() => import('./pages/CostPage'));
+const DataSourcePage = lazy(() => import('./pages/DataSourcePage'));
+const AuditLogPage = lazy(() => import('./pages/AuditLogPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const ApiDocsPage = lazy(() => import('./pages/ApiDocsPage'));
+
+function Loading() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: '#64748b' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 28, marginBottom: 8, animation: 'spin 1s linear infinite' }}>⚙️</div>
+        <div style={{ fontSize: 13 }}>加载中...</div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -96,22 +110,24 @@ function App() {
           </div>
         </aside>
         <main className="main-content">
-          <Routes>
-            <Route path="/" element={<DashboardPage />} />
-            <Route path="/environments" element={<EnvironmentPage />} />
-            <Route path="/monitoring" element={<MonitoringPage />} />
-            <Route path="/slo" element={<SLOPage />} />
-            <Route path="/alerts" element={<AlertPage />} />
-            <Route path="/deployment" element={<DeploymentPage />} />
-            <Route path="/workflows" element={<WorkflowsPage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/security" element={<SecurityPage />} />
-            <Route path="/cost" element={<CostPage />} />
-            <Route path="/datasource" element={<DataSourcePage />} />
-            <Route path="/audit" element={<AuditLogPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/api-docs" element={<ApiDocsPage />} />
-          </Routes>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/environments" element={<EnvironmentPage />} />
+              <Route path="/monitoring" element={<MonitoringPage />} />
+              <Route path="/slo" element={<SLOPage />} />
+              <Route path="/alerts" element={<AlertPage />} />
+              <Route path="/deployment" element={<DeploymentPage />} />
+              <Route path="/workflows" element={<WorkflowsPage />} />
+              <Route path="/events" element={<EventsPage />} />
+              <Route path="/security" element={<SecurityPage />} />
+              <Route path="/cost" element={<CostPage />} />
+              <Route path="/datasource" element={<DataSourcePage />} />
+              <Route path="/audit" element={<AuditLogPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/api-docs" element={<ApiDocsPage />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
     </HashRouter>

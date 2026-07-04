@@ -307,7 +307,7 @@ def _demo_nodes():
     return [
         {"name": "k8s-master", "status": "Ready", "roles": "control-plane", "age": "127d", "version": "v1.28.4", "os": "Ubuntu 22.04", "cpu": "35%", "memory": "62%", "cpu_alloc": "8", "mem_alloc": "32Gi"},
         {"name": "k8s-worker-01", "status": "Ready", "roles": "worker", "age": "127d", "version": "v1.28.4", "os": "Ubuntu 22.04", "cpu": "68%", "memory": "74%", "cpu_alloc": "16", "mem_alloc": "64Gi"},
-        {"name": "k8s-worker-02", "status": "Ready", "roles": "worker", "age": "95d", "version": "v1.28.4", "os": "Ubuntu 22.04", "cpu": "cpu": "45%", "memory": "58%", "cpu_alloc": "16", "mem_alloc": "64Gi"},
+        {"name": "k8s-worker-02", "status": "Ready", "roles": "worker", "age": "95d", "version": "v1.28.4", "os": "Ubuntu 22.04", "cpu": "45%", "memory": "58%", "cpu_alloc": "16", "mem_alloc": "64Gi"},
         {"name": "k8s-worker-03", "status": "Ready", "roles": "worker", "age": "30d", "version": "v1.28.4", "os": "Ubuntu 22.04", "cpu": "52%", "memory": "65%", "cpu_alloc": "16", "mem_alloc": "64Gi"},
     ]
 

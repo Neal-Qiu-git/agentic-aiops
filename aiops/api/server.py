@@ -175,6 +175,10 @@ class AIOpsHandler(BaseHTTPRequestHandler):
             self._multicloud_data(params)
         elif path == "/api/v1/audit":
             self._audit_logs(params)
+        elif path == "/api/v1/cost/summary":
+            self._cost_summary(params)
+        elif path == "/api/v1/security/summary":
+            self._security_summary(params)
         else:
             self._respond(404, {"error": "API not found"})
 
@@ -467,6 +471,40 @@ class AIOpsHandler(BaseHTTPRequestHandler):
             {"id": "LOG-001", "time": "14:32:15", "user": "admin", "action": "部署", "resource": "nginx-frontend", "detail": "滚动更新 v2.3.1 → v2.3.2", "ip": "10.0.1.100", "result": "success"},
             {"id": "LOG-002", "time": "14:28:03", "user": "sre-bot", "action": "告警处理", "resource": "HighCPUUsage", "detail": "自动扩容 worker-03", "ip": "10.0.1.50", "result": "success"},
             {"id": "LOG-003", "time": "14:15:42", "user": "devops", "action": "配置变更", "resource": "nginx.conf", "detail": "更新 upstream 配置", "ip": "10.0.1.200", "result": "success"},
+        ]
+        self._respond(200, {"status": "success", "data": data})
+
+    def _cost_summary(self, params):
+        """成本分析摘要"""
+        data = [
+            {"provider": "阿里云", "service": "ECS 计算", "monthly": 125000, "trend": "+5%", "optimization": "可优化: 3台低利用率实例", "region": "cn-hangzhou"},
+            {"provider": "阿里云", "service": "RDS 数据库", "monthly": 89000, "trend": "+2%", "optimization": "存储可清理 200GB 历史数据", "region": "cn-hangzhou"},
+            {"provider": "阿里云", "service": "SLB 负载均衡", "monthly": 32000, "trend": "0%", "optimization": "无优化建议", "region": "cn-hangzhou"},
+            {"provider": "AWS", "service": "EC2 计算", "monthly": 98000, "trend": "-3%", "optimization": "预留实例可节省 35%", "region": "us-east-1"},
+            {"provider": "AWS", "service": "S3 存储", "monthly": 15000, "trend": "+12%", "optimization": "生命周期策略迁移冷数据", "region": "us-east-1"},
+            {"provider": "AWS", "service": "CloudFront", "monthly": 22000, "trend": "+8%", "optimization": "缓存命中率可提升", "region": "global"},
+            {"provider": "华为云", "service": "ECS", "monthly": 68000, "trend": "+1%", "optimization": "弹性伸缩可减少闲时资源", "region": "cn-north-4"},
+            {"provider": "腾讯云", "service": "CVM", "monthly": 45000, "trend": "-2%", "optimization": "无优化建议", "region": "ap-guangzhou"},
+        ]
+        self._respond(200, {"status": "success", "data": data})
+
+    def _security_summary(self, params):
+        """安全态势摘要"""
+        data = [
+            {"category": "漏洞扫描", "total": 23, "critical": 2, "high": 5, "medium": 11, "low": 5, "items": [
+                {"name": "CVE-2024-3094", "severity": "critical", "status": "open", "description": "XZ Utils 后门漏洞"},
+                {"name": "CVE-2024-21762", "severity": "critical", "status": "open", "description": "FortiOS 远程代码执行"},
+                {"name": "OpenSSH 弱密码", "severity": "high", "status": "mitigated", "description": "部分主机仍允许密码登录"},
+            ]},
+            {"category": "合规检查", "total": 45, "critical": 0, "high": 3, "medium": 12, "low": 30, "items": [
+                {"name": "密码策略", "severity": "high", "status": "open", "description": "3台服务器密码不符合等保要求"},
+                {"name": "审计日志", "severity": "high", "status": "open", "description": "审计日志保留不足180天"},
+                {"name": "文件权限", "severity": "medium", "status": "open", "description": "敏感文件权限过宽"},
+            ]},
+            {"category": "配置审计", "total": 67, "critical": 0, "high": 2, "medium": 8, "low": 57, "items": [
+                {"name": "SSH 配置", "severity": "high", "status": "open", "description": "2台服务器允许 root SSH 登录"},
+                {"name": "防火墙规则", "severity": "medium", "status": "open", "description": "5条冗余规则"},
+            ]},
         ]
         self._respond(200, {"status": "success", "data": data})
 
