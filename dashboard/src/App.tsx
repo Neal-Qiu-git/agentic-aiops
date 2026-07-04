@@ -5,6 +5,8 @@ import WorkflowsPage from './pages/WorkflowsPage';
 import EventsPage from './pages/EventsPage';
 import AgentsPage from './pages/AgentsPage';
 import ApiDocsPage from './pages/ApiDocsPage';
+import MonitoringPage from './pages/MonitoringPage';
+import DeploymentPage from './pages/DeploymentPage';
 
 function App() {
   return (
@@ -30,6 +32,12 @@ function App() {
             </div>
             <div className="nav-section">
               <div className="nav-section-title">运维</div>
+              <NavLink to="/monitoring" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                <span>📊</span><span>实时监控</span>
+              </NavLink>
+              <NavLink to="/deployment" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                <span>🚀</span><span>部署管理</span>
+              </NavLink>
               <NavLink to="/workflows" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
                 <span>⚡</span><span>工作流</span>
               </NavLink>
@@ -64,6 +72,8 @@ function App() {
             <Route path="/agents" element={<AgentsPage />} />
             <Route path="/workflows" element={<WorkflowsPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route path="/monitoring" element={<MonitoringPage />} />
+            <Route path="/deployment" element={<DeploymentPage />} />
             <Route path="/api-docs" element={<ApiDocsPage />} />
           </Routes>
         </main>
