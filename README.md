@@ -219,37 +219,63 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 
 ### 平台 & 运行时
 
-| 平台 | 容器 | 数据库 | 中间件 | 监控 |
-|------|------|--------|--------|------|
-| Linux ✅ | Docker ✅ | MySQL ✅ | Nginx ✅ | Prometheus ✅ |
-| Windows ✅ | containerd ✅ | PostgreSQL ✅ | RabbitMQ ✅ | Grafana ✅ |
-| 麒麟 V10 ✅ | Podman ✅ | Redis ✅ | Kafka ✅ | SkyWalking ✅ |
-| 统信 UOS ✅ | K3s ✅ | Oracle ✅ | TongWeb ✅ | Jaeger ✅ |
-| openEuler ✅ | Docker Swarm ✅ | 达梦 DM8 ✅ | WildFly ✅ | Loki ✅ |
-| | | MongoDB ✅ | Caddy ✅ | |
-| | | Elasticsearch ✅ | | |
-| | | TiDB ✅ | | |
-| | | ClickHouse ✅ | | |
+| 平台 | 容器 | 数据库 | 中间件 | 监控 & 可观测 |
+|------|------|--------|--------|--------------|
+| Linux (全发行版) ✅ | Docker ✅ | MySQL ✅ | Nginx ✅ | Prometheus ✅ |
+| Windows Server ✅ | Kubernetes ✅ | PostgreSQL ✅ | Apache Kafka ✅ | Grafana ✅ |
+| 银河麒麟 ✅ | containerd ✅ | Redis ✅ | RabbitMQ ✅ | SkyWalking ✅ |
+| 统信 UOS ✅ | Podman ✅ | Oracle ✅ | Tomcat ✅ | Jaeger ✅ |
+| openEuler ✅ | K3s ✅ | 达梦 DM8 ✅ | TongWeb ✅ | Loki ✅ |
+| Ubuntu/CentOS/RHEL ✅ | Docker Compose ✅ | MongoDB ✅ | WildFly/JBoss ✅ | Alertmanager ✅ |
+| Debian/SUSE ✅ | Docker Swarm ✅ | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
+| Alpine ✅ | Nomad ✅ | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
+| | | ClickHouse ✅ | NATS ✅ | Pyroscope ✅ |
+| | | OceanBase ✅ | HAProxy ✅ | Tempo ✅ |
+| | | KingbaseES ✅ | Traefik ✅ | |
+| | | Cassandra ✅ | Consul ✅ | |
+| | | DynamoDB ✅ | | |
+
+### 安全扫描
+
+| 工具 | 用途 |
+|------|------|
+| Trivy ✅ | 镜像/文件系统/仓库漏洞扫描 |
+| Falco ✅ | K8s 运行时安全监控 |
+| OPA/Gatekeeper ✅ | 策略即代码评估 |
+| kube-bench ✅ | K8s CIS 基准安全检查 |
+| Kubescape ✅ | K8s 安全合规扫描 (NSA/CISA) |
+
+### 密钥管理
+
+| 工具 | 用途 |
+|------|------|
+| HashiCorp Vault ✅ | 密钥/证书/动态凭证管理 |
 
 ### 云平台
 
 | 云 | 服务 |
 |----|------|
-| AWS ✅ | EC2, RDS, S3, CloudFront, Lambda, EKS |
+| AWS ✅ | EC2, RDS, S3, CloudFront, Lambda, EKS, DynamoDB, Cost Explorer |
 | 阿里云 ✅ | ECS, RDS, Redis, SLB, OSS, CDN, ACK |
-| 华为云 ✅ | ECS, RDS, OBS, CCE, 华为云Stack |
+| 华为云 ✅ | ECS, RDS, OBS, CCE, 华为云 Stack |
 | 腾讯云 ✅ | CVM, COS, CLB, TKE |
-| Azure ✅ | VM, SQL, Blob, AKS |
-| GCP ✅ | Compute, Cloud SQL, GKE |
+| Azure ✅ | VM, SQL, Blob, AKS, Cost Management |
+| GCP ✅ | Compute, Cloud SQL, GKE, Cost |
+| OpenStack ✅ | Nova, Neutron, Cinder |
 
-### IaC & CI/CD
+### IaC & CI/CD & GitOps
 
-| 工具 | 状态 |
+| 工具 | 用途 |
 |------|------|
-| Terraform ✅ | Ansible ✅ |
-| Helm ✅ | ArgoCD ✅ |
-| Jenkins ✅ | GitLab CI ✅ |
-| GitHub Actions ✅ | FluxCD ✅ |
+| Terraform ✅ | 基础设施即代码 (init/plan/apply/state) |
+| Ansible ✅ | 配置管理 (adhoc/playbook/inventory) |
+| Helm ✅ | K8s 包管理 (list/status/history/rollback) |
+| ArgoCD ✅ | K8s GitOps 持续部署 |
+| FluxCD ✅ | 轻量级 GitOps |
+| Jenkins ✅ | CI/CD 流水线 |
+| GitLab CI ✅ | GitLab CI/CD 管道 |
+| GitHub Actions ✅ | GitHub 工作流 |
+| Harbor ✅ | 企业级容器镜像仓库 |
 
 ---
 

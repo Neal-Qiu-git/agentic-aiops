@@ -40,24 +40,21 @@ export const agents: Agent[] = [
 
 // Tool categories (v5.3.0 - 148+ tools)
 export const toolCategories = [
-  { name: '可观测性', icon: '🔭', count: 24, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'APM (4)', 'OTel (1)'], color: '#3b82f6' },
-  { name: '数据库', icon: '🗄️', count: 21, tools: ['MySQL', 'Redis', 'PostgreSQL', 'MongoDB', 'ES', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Kafka'], color: '#8b5cf6' },
-  { name: '云平台', icon: '☁️', count: 4, tools: ['AWS', 'Azure', '阿里云', '腾讯云', '华为云'], color: '#f97316' },
-  { name: '容器/K8s', icon: '🐳', count: 27, tools: ['K8s (12)', 'Docker (7)', 'Kubectl (1)'], color: '#0ea5e9' },
-  { name: '中间件', icon: '📦', count: 11, tools: ['Nginx', 'Tomcat', 'RabbitMQ', 'Kafka', 'TongWeb', 'Pulsar', 'NATS', 'Traefik', 'HAProxy', 'Consul'], color: '#a855f7' },
-  { name: '安全', icon: '🔒', count: 7, tools: ['Trivy', 'Falco', 'OPA', 'kube-bench', 'Kubescape'], color: '#ef4444' },
-  { name: 'CI/CD', icon: '🚀', count: 3, tools: ['Jenkins', 'GitLab CI', 'GitHub Actions'], color: '#10b981' },
+  { name: '可观测性', icon: '🔭', count: 20, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'SkyWalking (2)', 'Jaeger', 'OpenTelemetry', 'Tempo'], color: '#3b82f6' },
+  { name: '数据库', icon: '🗄️', count: 20, tools: ['MySQL (2)', 'Redis (6)', 'PostgreSQL', 'MongoDB', 'Elasticsearch', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Cassandra', 'DynamoDB'], color: '#8b5cf6' },
+  { name: '云平台', icon: '☁️', count: 9, tools: ['AWS CLI', '阿里云 CLI', '华为云 CLI', '腾讯云 CLI', 'Azure CLI', 'GCP CLI', 'OpenStack (3)'], color: '#f97316' },
+  { name: '容器/K8s', icon: '🐳', count: 21, tools: ['K8s (11)', 'Docker (7)', 'containerd', 'Podman', 'Harbor'], color: '#0ea5e9' },
+  { name: '中间件', icon: '📦', count: 14, tools: ['Nginx', 'Tomcat', 'RabbitMQ', 'Kafka', 'TongWeb', 'Pulsar', 'NATS', 'HAProxy', 'Traefik', 'Consul', 'WildFly', 'Caddy', 'Elasticsearch'], color: '#a855f7' },
+  { name: '安全', icon: '🔒', count: 8, tools: ['Trivy (2)', 'Falco', 'OPA', 'kube-bench', 'Kubescape', 'Firewall', 'CertManager'], color: '#ef4444' },
+  { name: 'CI/CD', icon: '🚀', count: 5, tools: ['Jenkins', 'GitLab CI', 'GitHub Actions', 'SonarQube (2)'], color: '#10b981' },
   { name: 'GitOps', icon: '🔀', count: 5, tools: ['ArgoCD (3)', 'FluxCD (2)'], color: '#8b5cf6' },
-  { name: 'IaC', icon: '🏗️', count: 6, tools: ['Terraform (6)'], color: '#64748b' },
-  { name: 'FinOps', icon: '💰', count: 4, tools: ['Kubecost (2)', 'AWS Cost', 'Azure Cost'], color: '#14b8a6' },
-  { name: '网络', icon: '🌐', count: 6, tools: ['Firewall', 'LoadBalancer', 'DNS', 'NetworkDiag', 'VPN'], color: '#06b6d4' },
-  { name: '虚拟化', icon: '🖥️', count: 3, tools: ['VMware', 'KVM', 'Proxmox'], color: '#84cc16' },
-  { name: '远程管理', icon: '🪟', count: 3, tools: ['WinRM Exec', 'EventLog', 'Service'], color: '#06b6d4' },
-  { name: '密钥管理', icon: '🔐', count: 6, tools: ['Vault (6)'], color: '#ef4444' },
-  { name: '配置管理', icon: '⚙️', count: 3, tools: ['Ansible AdHoc', 'Playbook', 'Inventory'], color: '#f59e0b' },
-  { name: '代码质量', icon: '🔍', count: 2, tools: ['SonarQube Scan', 'Status'], color: '#10b981' },
-  { name: '日志', icon: '📋', count: 1, tools: ['LogSearch'], color: '#f59e0b' },
-  { name: 'SSH', icon: '🔑', count: 3, tools: ['SSH Exec', 'Test', 'SystemInfo'], color: '#10b981' },
+  { name: 'IaC & 配置', icon: '🏗️', count: 9, tools: ['Terraform (6)', 'Ansible (3)'], color: '#64748b' },
+  { name: 'FinOps', icon: '💰', count: 5, tools: ['Kubecost (2)', 'AWS Cost', 'Azure Cost', 'GCP Cost'], color: '#14b8a6' },
+  { name: '网络', icon: '🌐', count: 4, tools: ['LoadBalancer', 'DNS', 'NetworkDiag', 'VPN'], color: '#06b6d4' },
+  { name: '虚拟化', icon: '🖥️', count: 4, tools: ['VMware', 'KVM/Libvirt', 'Proxmox', 'MetalLB'], color: '#84cc16' },
+  { name: '密钥管理', icon: '🔐', count: 6, tools: ['Vault Status', 'KV Read/Write', 'Lease', 'Policies', 'Secret Engines'], color: '#ef4444' },
+  { name: '日志', icon: '📋', count: 5, tools: ['Loki (4)', 'LogSearch'], color: '#f59e0b' },
+  { name: 'SSH/远程', icon: '🔑', count: 4, tools: ['SSH Exec', 'SSH Test', 'SSH SystemInfo', 'WinRM'], color: '#10b981' },
 ];
 
 // Network topology connections
