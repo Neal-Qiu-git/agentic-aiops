@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AIOps Dashboard Preview</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#030712;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:240px;background:rgba(15,23,42,0.8);border-right:1px solid rgba(59,130,246,0.2);padding:20px 0;position:fixed;height:100vh;overflow-y:auto}
+.sidebar-header{padding:0 20px 20px;border-bottom:1px solid rgba(59,130,246,0.15)}
+.sidebar-header h1{font-size:18px;color:#3b82f6;margin-bottom:4px}
+.sidebar-header p{font-size:11px;color:#64748b}
+.nav-section{margin-top:16px;padding:0 12px}
+.nav-section-title{font-size:10px;text-transform:uppercase;color:#64748b;letter-spacing:1px;padding:8px 12px}
+.nav-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:#94a3b8;font-size:14px;transition:all .2s}
+.nav-link.active{background:rgba(59,130,246,0.15);color:#3b82f6}
+.nav-link:hover{background:rgba(59,130,246,0.1)}
+.main{margin-left:240px;flex:1;padding:24px;overflow-y:auto}
+.page-header{margin-bottom:24px}
+.page-header h2{font-size:24px;font-weight:700;background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-header p{color:#64748b;font-size:14px;margin-top:4px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:rgba(15,23,42,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:20px}
+.stat-card .label{font-size:12px;color:#64748b;margin-bottom:8px}
+.stat-card .value{font-size:28px;font-weight:700}
+.stat-card .value.blue{color:#3b82f6}
+.stat-card .value.green{color:#22c55e}
+.stat-card .value.purple{color:#8b5cf6}
+.stat-card .value.cyan{color:#06b6d4}
+.stat-card .change{font-size:12px;color:#22c55e;margin-top:4px}
+.content-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+.card{background:rgba(15,23,42,0.6);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:20px}
+.card-title{font-size:14px;font-weight:600;color:#e2e8f0;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.chart-placeholder{height:200px;border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:160px;padding:0 20px}
+.chart-bar{width:32px;border-radius:4px 4px 0 0;transition:height .3s}
+.chart-bar.b1{background:linear-gradient(180deg,#3b82f6,#1d4ed8);height:120px}
+.chart-bar.b2{background:linear-gradient(180deg,#8b5cf6,#6d28d9);height:90px}
+.chart-bar.b3{background:linear-gradient(180deg,#06b6d4,#0891b2);height:140px}
+.chart-bar.b4{background:linear-gradient(180deg,#3b82f6,#1d4ed8);height:80px}
+.chart-bar.b5{background:linear-gradient(180deg,#8b5cf6,#6d28d9);height:110px}
+.chart-bar.b6{background:linear-gradient(180deg,#06b6d4,#0891b2);height:100px}
+.chart-bar.b7{background:linear-gradient(180deg,#3b82f6,#1d4ed8);height:130px}
+.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.health-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;background:rgba(30,41,59,0.5)}
+.health-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.health-icon.cpu{background:rgba(59,130,246,0.2);color:#3b82f6}
+.health-icon.mem{background:rgba(139,92,246,0.2);color:#8b5cf6}
+.health-icon.disk{background:rgba(6,182,212,0.2);color:#06b6d4}
+.health-icon.net{background:rgba(34,197,94,0.2);color:#22c55e}
+.health-info .name{font-size:13px;color:#94a3b8}
+.health-info .val{font-size:16px;font-weight:600;color:#e2e8f0}
+.event-list{list-style:none}
+.event-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(59,130,246,0.1)}
+.event-item:last-child{border-bottom:none}
+.event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.event-dot.success{background:#22c55e}
+.event-dot.warning{background:#f59e0b}
+.event-dot.error{background:#ef4444}
+.event-dot.info{background:#3b82f6}
+.event-text{font-size:13px;color:#94a3b8;flex:1}
+.event-time{font-size:11px;color:#475569}
+.footer{position:fixed;bottom:0;right:0;left:240px;padding:12px 24px;border-top:1px solid rgba(59,130,246,0.1);font-size:11px;color:#475569;text-align:center;background:#030712}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
+.badge.live{background:rgba(34,197,94,0.15);color:#22c55e}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pulse{animation:pulse 2s infinite}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header">
+<h1>🤖 Agentic AIOps</h1>
+<p>AI-native Operations Platform</p>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">概览</div>
+<a class="nav-link active" href="#"><span>📊</span><span>仪表盘</span></a>
+<a class="nav-link" href="#"><span>🕸️</span><span>Agent 网络</span></a>
+<a class="nav-link" href="#"><span>🤖</span><span>智能体管理</span></a>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">运维</div>
+<a class="nav-link" href="#"><span>⚡</span><span>工作流</span></a>
+<a class="nav-link" href="#"><span>📡</span><span>事件日志</span></a>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">系统</div>
+<a class="nav-link" href="#"><span>📖</span><span>API 文档</span></a>
+<a class="nav-link" href="#"><span>🐙</span><span>源码仓库</span></a>
+</div>
+<div style="padding:12px;border-top:1px solid rgba(59,130,246,0.15);font-size:11px;color:#475569;text-align:center">
+v4.2.0 · MIT License
+</div>
+</aside>
+<main class="main">
+<div class="page-header">
+<h2>📊 仪表盘</h2>
+<p>系统运行状态总览 <span class="badge live pulse">● LIVE</span></p>
+</div>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="label">运行中的智能体</div>
+<div class="value blue">12</div>
+<div class="change">↑ 全部在线</div>
+</div>
+<div class="stat-card">
+<div class="label">今日处理事件</div>
+<div class="value green">1,247</div>
+<div class="change">↑ 12.3% 较昨日</div>
+</div>
+<div class="stat-card">
+<div class="label">平均响应时间</div>
+<div class="value purple">2.3s</div>
+<div class="change">↓ 0.4s 优化</div>
+</div>
+<div class="stat-card">
+<div class="label">系统健康度</div>
+<div class="value cyan">98.7%</div>
+<div class="change">● 正常运行</div>
+</div>
+</div>
+<div class="content-grid">
+<div class="card">
+<div class="card-title">📈 事件趋势（24h）</div>
+<div class="chart-placeholder">
+<div class="chart-bars">
+<div class="chart-bar b1"></div>
+<div class="chart-bar b2"></div>
+<div class="chart-bar b3"></div>
+<div class="chart-bar b4"></div>
+<div class="chart-bar b5"></div>
+<div class="chart-bar b6"></div>
+<div class="chart-bar b7"></div>
+<div class="chart-bar b1"></div>
+<div class="chart-bar b3"></div>
+<div class="chart-bar b2"></div>
+<div class="chart-bar b5"></div>
+<div class="chart-bar b4"></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">🏥 系统健康</div>
+<div class="health-grid">
+<div class="health-item">
+<div class="health-icon cpu">🔲</div>
+<div class="health-info">
+<div class="name">CPU</div>
+<div class="val">23%</div>
+</div>
+</div>
+<div class="health-item">
+<div class="health-icon mem">💾</div>
+<div class="health-info">
+<div class="name">内存</div>
+<div class="val">67%</div>
+</div>
+</div>
+<div class="health-item">
+<div class="health-icon disk">📀</div>
+<div class="health-info">
+<div class="name">磁盘</div>
+<div class="val">45%</div>
+</div>
+</div>
+<div class="health-item">
+<div class="health-icon net">🌐</div>
+<div class="health-info">
+<div class="name">网络</div>
+<div class="val">正常</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card" style="margin-bottom:24px">
+<div class="card-title">📡 最近事件</div>
+<ul class="event-list">
+<li class="event-item"><span class="event-dot success"></span><span class="event-text">Linux Agent 完成 CPU 诊断 — host 10.0.0.1</span><span class="event-time">2 分钟前</span></li>
+<li class="event-item"><span class="event-dot warning"></span><span class="event-text">K8s Agent 检测到 Pod 重启次数异常 — namespace: prod</span><span class="event-time">5 分钟前</span></li>
+<li class="event-item"><span class="event-dot error"></span><span class="event-text">DB Agent 发现慢查询 — MySQL, 耗时 12.3s</span><span class="event-time">8 分钟前</span></li>
+<li class="event-item"><span class="event-dot success"></span><span class="event-text">Security Agent 扫描完成 — 0 高危漏洞</span><span class="event-time">15 分钟前</span></li>
+<li class="event-item"><span class="event-dot info"></span><span class="event-text">SRE Agent 更新 SLO 报告 — 可用性 99.95%</span><span class="event-time">22 分钟前</span></li>
+</ul>
+</div>
+<div style="text-align:center;padding:20px;color:#64748b;font-size:13px">
+<p>以上为 Dashboard 静态预览 · 实际运行需启动后端服务</p>
+<p style="margin-top:8px">🚀 <a href="https://gitee.com/neal4752/agentic-aiops" style="color:#3b82f6">查看源码</a> · <a href="https://github.com/Neal-Qiu-git/agentic-aiops" style="color:#8b5cf6">GitHub</a></p>
+</div>
+</main>
+</div>
+</body>
+</html>
