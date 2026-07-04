@@ -434,14 +434,7 @@ function NetworkTab({ navigate }: { navigate: any }) {
         </div>
       </div>
 
-      {/* 查看完整网络 */}
-      <div style={{ textAlign: 'center' }}>
-        <button onClick={() => navigate('/networks')} style={{
-          padding: '10px 24px', borderRadius: 8, border: '1px solid rgba(59,130,246,0.3)',
-          background: 'rgba(59,130,246,0.08)', color: '#3b82f6', cursor: 'pointer', fontSize: 13, fontWeight: 600,
-        }}>
-          🕸️ 查看完整交互式拓扑图 →
-        </button>
+      <div style={{ fontSize: 12, color: 'var(--text-muted)', textAlign: 'center', marginTop: 8 }}>
       </div>
     </div>
   );
@@ -541,16 +534,6 @@ function AgentsTab({ navigate }: { navigate: any }) {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* 查看完整列表 */}
-      <div style={{ textAlign: 'center' }}>
-        <button onClick={() => navigate('/agents')} style={{
-          padding: '10px 24px', borderRadius: 8, border: '1px solid rgba(139,92,246,0.3)',
-          background: 'rgba(139,92,246,0.08)', color: '#8b5cf6', cursor: 'pointer', fontSize: 13, fontWeight: 600,
-        }}>
-          🤖 查看完整智能体页面 →
-        </button>
       </div>
     </div>
   );

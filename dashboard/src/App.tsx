@@ -1,9 +1,7 @@
 import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
-import NetworksPage from './pages/NetworksPage';
 import DashboardPage from './pages/DashboardPage';
 import WorkflowsPage from './pages/WorkflowsPage';
 import EventsPage from './pages/EventsPage';
-import AgentsPage from './pages/AgentsPage';
 import ApiDocsPage from './pages/ApiDocsPage';
 import MonitoringPage from './pages/MonitoringPage';
 import DeploymentPage from './pages/DeploymentPage';
@@ -30,12 +28,6 @@ function App() {
               <div className="nav-section-title">概览</div>
               <NavLink to="/" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`} end>
                 <span>📊</span><span>仪表盘</span>
-              </NavLink>
-              <NavLink to="/networks" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
-                <span>🕸️</span><span>Agent 网络</span>
-              </NavLink>
-              <NavLink to="/agents" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
-                <span>🤖</span><span>智能体 & 工具</span>
               </NavLink>
               <NavLink to="/environments" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
                 <span>🏗️</span><span>环境</span>
@@ -100,14 +92,12 @@ function App() {
             </div>
           </nav>
           <div style={{padding: '12px', borderTop: '1px solid rgba(59,130,246,0.15)', fontSize: '11px', color: '#475569', textAlign: 'center'}}>
-            v5.2.0 · MIT License
+            v5.3.0 · MIT License
           </div>
         </aside>
         <main className="main-content">
           <Routes>
             <Route path="/" element={<DashboardPage />} />
-            <Route path="/networks" element={<NetworksPage />} />
-            <Route path="/agents" element={<AgentsPage />} />
             <Route path="/environments" element={<EnvironmentPage />} />
             <Route path="/monitoring" element={<MonitoringPage />} />
             <Route path="/slo" element={<SLOPage />} />
