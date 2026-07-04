@@ -100,7 +100,7 @@ function App() {
             </div>
           </nav>
           <div style={{padding: '12px', borderTop: '1px solid rgba(59,130,246,0.15)', fontSize: '11px', color: '#475569', textAlign: 'center'}}>
-            v5.1.0 · MIT License
+            v5.2.0 · MIT License
           </div>
         </aside>
         <main className="main-content">
