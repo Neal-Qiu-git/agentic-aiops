@@ -5,7 +5,7 @@ __pycache__/
 *.so
 *.egg
 *.egg-info/
-dist/
+/dist/
 build/
 eggs/
 *.whl
@@ -77,4 +77,3 @@ htmlcov/
 AIOPS_*
 node_modules/
 dashboard/node_modules/
-dashboard/dist/

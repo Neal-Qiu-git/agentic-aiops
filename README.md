@@ -8,10 +8,11 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-4.1-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-4.2-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
 [![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
+[![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://neal4752.gitee.io/agentic-aiops/dashboard-dist/)
 
 [English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)
 
@@ -54,7 +55,33 @@
 
 ---
 
-## 📸 演示
+## 📸 在线演示
+
+> **[🚀 点击查看 Dashboard](https://neal4752.gitee.io/agentic-aiops/dashboard-dist/)** — 深空科技风可视化运维平台
+
+### 🕸️ Agent 网络拓扑
+
+12 个专业智能体通过事件总线协作，实时展示 Agent 之间的数据流和依赖关系。
+
+### 📊 仪表盘总览
+
+系统健康监控（CPU / 内存 / 磁盘 / 网络）、智能体状态、最近事件流。
+
+### 🤖 智能体管理
+
+每个 Agent 的任务数、成功率、响应时间、最后活跃时间。
+
+### ⚡ 工作流引擎
+
+YAML 声明式自动化编排，步骤可视化展示。
+
+### 📡 事件日志
+
+实时事件流（成功 / 警告 / 错误 / 信息），支持筛选和搜索。
+
+---
+
+### CLI 演示
 
 ```
 $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
@@ -220,7 +247,7 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 ### v3.x — 平台 🚧
 - [x] REST API
 - [x] Docker/K8s 部署
-- [ ] Web Dashboard
+- [x] Web Dashboard (React + TypeScript)
 - [ ] 可视化工作流设计器
 
 ### v4.x — 企业 📋
