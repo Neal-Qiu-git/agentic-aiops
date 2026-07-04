@@ -2,6 +2,29 @@
 
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [4.3.0] - 2026-07-04
+
+### 🔭 可观测性全覆盖 (基于行业真实技术栈)
+
+#### 新增工具文件 (8 个, 50 个工具)
+- ✅ **Grafana API** (4): Dashboard 管理/数据源查询/标注/告警规则
+- ✅ **Loki LogQL** (4): 日志查询/标签/时间序列 (K8s 日志标准)
+- ✅ **Alertmanager** (3): 活跃告警/静默管理/状态查询
+- ✅ **APM 工具** (4): SkyWalking 服务拓扑/指标 + Jaeger 分布式追踪 + OTel Collector
+- ✅ **Terraform IaC** (6): init/plan/apply/state/output/validate
+- ✅ **GitOps** (5): ArgoCD 应用/项目/仓库 + FluxCD 资源/重同步
+- ✅ **CI/CD** (3): Jenkins 作业 + GitLab CI 流水线 + GitHub Actions
+- ✅ **安全扫描** (6): Trivy 漏洞/Falco 运行时/OPA 策略/kube-bench/Kubescape
+- ✅ **FinOps** (4): Kubecost 资源分配/资产 + AWS 成本 + Azure 成本
+- ✅ **企业数据库** (6): Oracle + ClickHouse + TiDB + 达梦DM8 + OceanBase + KingbaseES
+- ✅ **扩展中间件** (5): Pulsar + NATS + Traefik + HAProxy + Consul
+- ✅ **新 ToolCategory** (9): GITOPS/IAC/APM/CICD/PROFILING/FINOPS/VAULT/MESSAGE_QUEUE/REVERSE_PROXY
+
+#### 工具总计
+- v4.2.0: 65 个工具 → v4.3.0: **115 个工具** (+50)
+
+---
+
 ## [4.1.0] - 2026-07-04
 
 ### 🎉 第一个正式版本

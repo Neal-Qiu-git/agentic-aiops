@@ -8,10 +8,10 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-4.2-orange.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/Version-4.3-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
+[![MCP](https://img.shields.io/badge/MCP-115_Tools-FF6B35?style=flat-square)]()
 [![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://Neal-Qiu-git.github.io/agentic-aiops/)
 
 [English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)
@@ -40,9 +40,9 @@
 
 ## ✨ 核心特性
 
-- 🤖 **12 专业智能体** — Linux、K8s、数据库、日志、监控、安全、SRE、成本、事件、DevOps、CMDB、规划师
+- 🤖 **20 专业智能体** — Linux、K8s、Docker、数据库、日志、监控、安全、SRE、成本、事件、DevOps、CMDB、云平台、Windows、网络、中间件、服务网格、虚拟化、规划师、AI Copilot
 - 🔄 **ReAct 生命周期** — 观察 → 推理 → 计划 → 执行 → 验证 → 学习
-- 🔌 **MCP 工具市场** — 20+ 工具，插件化架构
+- 🔌 **MCP 工具市场** — 115+ 工具，覆盖可观测性/数据库/中间件/云/IaC/GitOps/CI-CD/安全/FinOps/APM
 - 🧠 **5 类记忆系统** — 工作记忆、短期、长期、语义、情景
 - 📚 **知识库 RAG** — Runbook、文档、历史案例语义检索
 - ⚡ **事件总线** — 解耦式智能体协作

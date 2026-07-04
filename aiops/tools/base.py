@@ -22,6 +22,16 @@ class ToolCategory(Enum):
     UTILITY = "utility"
     CLOUD_API = "cloud_api"
     ORCHESTRATION = "orchestration"
+    # v4.3.0 新增 - 行业标准分类
+    GITOPS = "gitops"
+    IAC = "iac"
+    APM = "apm"
+    CICD = "cicd"
+    PROFILING = "profiling"
+    FINOPS = "finops"
+    VAULT = "vault"
+    MESSAGE_QUEUE = "message_queue"
+    REVERSE_PROXY = "reverse_proxy"
 
 
 @dataclass

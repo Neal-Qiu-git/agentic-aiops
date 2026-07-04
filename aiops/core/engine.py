@@ -52,33 +52,183 @@ class AIOpsEngine:
 
     def _init_tools(self):
         """初始化所有工具"""
+        registered = 0
+
+        # --- 基础工具 ---
         try:
             from ..tools.ssh_tools import SSHExecTool, SSHTestConnectionTool, SSHGetSystemInfoTool
-            from ..tools.k8s_tools import (
-                KubectlTool, K8sGetNodesTool, K8sGetPodsTool,
-                K8sGetEventsTool, K8sLogsTool, K8sDescribePodTool,
-                K8sRestartTool, K8sRollbackTool,
-            )
-
-            # SSH 工具
-            self.tool_registry.register(SSHExecTool())
-            self.tool_registry.register(SSHTestConnectionTool())
-            self.tool_registry.register(SSHGetSystemInfoTool())
-
-            # K8s 工具
-            self.tool_registry.register(KubectlTool())
-            self.tool_registry.register(K8sGetNodesTool())
-            self.tool_registry.register(K8sGetPodsTool())
-            self.tool_registry.register(K8sGetEventsTool())
-            self.tool_registry.register(K8sLogsTool())
-            self.tool_registry.register(K8sDescribePodTool())
-            self.tool_registry.register(K8sRestartTool())
-            self.tool_registry.register(K8sRollbackTool())
-
-            logger.info(f"工具注册完成: {len(self.tool_registry.list_tools())} 个工具")
-
+            for t in [SSHExecTool(), SSHTestConnectionTool(), SSHGetSystemInfoTool()]:
+                self.tool_registry.register(t); registered += 1
         except ImportError as e:
-            logger.warning(f"部分工具加载失败: {e}")
+            logger.warning(f"SSH 工具加载失败: {e}")
+
+        try:
+            from ..tools.k8s_tools import (KubectlTool, K8sGetNodesTool, K8sGetPodsTool,
+                K8sGetEventsTool, K8sLogsTool, K8sDescribePodTool, K8sRestartTool, K8sRollbackTool,
+                K8sGetDeploymentsTool, K8sGetNamespacesTool, K8sGetServicesTool, K8sScaleDeploymentTool)
+            for t in [KubectlTool(), K8sGetNodesTool(), K8sGetPodsTool(), K8sGetEventsTool(),
+                      K8sLogsTool(), K8sDescribePodTool(), K8sRestartTool(), K8sRollbackTool(),
+                      K8sGetDeploymentsTool(), K8sGetNamespacesTool(), K8sGetServicesTool(), K8sScaleDeploymentTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"K8s 工具加载失败: {e}")
+
+        try:
+            from ..tools.docker_tools import (DockerPS, DockerLogs, DockerInspect, DockerStats,
+                DockerCompose, DockerNetwork, DockerVolume)
+            for t in [DockerPS(), DockerLogs(), DockerInspect(), DockerStats(),
+                      DockerCompose(), DockerNetwork(), DockerVolume()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Docker 工具加载失败: {e}")
+
+        # --- 可观测性工具 (v4.3.0) ---
+        try:
+            from ..tools.prometheus_tools import (PrometheusQueryTool, PrometheusRangeQueryTool,
+                PrometheusAlertsTool, PrometheusTargetsTool, PrometheusSummaryTool)
+            for t in [PrometheusQueryTool(), PrometheusRangeQueryTool(),
+                      PrometheusAlertsTool(), PrometheusTargetsTool(), PrometheusSummaryTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Prometheus 工具加载失败: {e}")
+
+        try:
+            from ..tools.grafana_tools import GrafanaDashboards, GrafanaQuery, GrafanaAnnotations, GrafanaAlertRules
+            for t in [GrafanaDashboards(), GrafanaQuery(), GrafanaAnnotations(), GrafanaAlertRules()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Grafana 工具加载失败: {e}")
+
+        try:
+            from ..tools.loki_tools import LokiQuery, LokiLabels, LokiLabelValues, LokiSeries
+            for t in [LokiQuery(), LokiLabels(), LokiLabelValues(), LokiSeries()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Loki 工具加载失败: {e}")
+
+        try:
+            from ..tools.alertmanager_tools import AlertmanagerAlerts, AlertmanagerSilence, AlertmanagerStatus
+            for t in [AlertmanagerAlerts(), AlertmanagerSilence(), AlertmanagerStatus()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Alertmanager 工具加载失败: {e}")
+
+        try:
+            from ..tools.apm_tools import SkyWalkingService, SkyWalkingMetrics, JaegerTraces, OpenTelemetryCollector
+            for t in [SkyWalkingService(), SkyWalkingMetrics(), JaegerTraces(), OpenTelemetryCollector()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"APM 工具加载失败: {e}")
+
+        # --- 数据库工具 ---
+        try:
+            from ..tools.database_tools import MySQLTool, RedisTool, PostgreSQLTool, MongoDBTool, ElasticsearchTool, KafkaTool
+            for t in [MySQLTool(), RedisTool(), PostgreSQLTool(), MongoDBTool(), ElasticsearchTool(), KafkaTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"数据库工具加载失败: {e}")
+
+        try:
+            from ..tools.enterprise_db_tools import OracleTool, ClickHouseTool, TiDBTool, DM8Tool, OceanBaseTool, KingbaseESTool
+            for t in [OracleTool(), ClickHouseTool(), TiDBTool(), DM8Tool(), OceanBaseTool(), KingbaseESTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"企业数据库工具加载失败: {e}")
+
+        # --- 中间件工具 ---
+        try:
+            from ..tools.middleware_tools import NginxTool, TomcatTool, RabbitMQTool, TongWebTool
+            for t in [NginxTool(), TomcatTool(), RabbitMQTool(), TongWebTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"中间件工具加载失败: {e}")
+
+        try:
+            from ..tools.middleware_ext_tools import PulsarTool, NATSTool, TraefikTool, HAProxyTool, ConsulTool
+            for t in [PulsarTool(), NATSTool(), TraefikTool(), HAProxyTool(), ConsulTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"扩展中间件工具加载失败: {e}")
+
+        # --- 云平台工具 ---
+        try:
+            from ..tools.cloud_tools import AzureCLI, AliyunCLI, TencentCLI, HuaweiCLI
+            for t in [AzureCLI(), AliyunCLI(), TencentCLI(), HuaweiCLI()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"云平台工具加载失败: {e}")
+
+        # --- 虚拟化工具 ---
+        try:
+            from ..tools.virtual_tools import VMwareTool, LibvirtTool, ProxmoxTool
+            for t in [VMwareTool(), LibvirtTool(), ProxmoxTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"虚拟化工具加载失败: {e}")
+
+        # --- Windows 工具 ---
+        try:
+            from ..tools.windows_tools import WinRMExec, WinRMEventLog, WinRMService
+            for t in [WinRMExec(), WinRMEventLog(), WinRMService()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Windows 工具加载失败: {e}")
+
+        # --- 网络工具 ---
+        try:
+            from ..tools.network_tools import FirewallTool, LoadBalancerTool, DNSTool, NetworkDiagTool, VPNTool
+            for t in [FirewallTool(), LoadBalancerTool(), DNSTool(), NetworkDiagTool(), VPNTool()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"网络工具加载失败: {e}")
+
+        # --- 日志工具 ---
+        try:
+            from ..tools.log_tools import LogSearchTool
+            self.tool_registry.register(LogSearchTool()); registered += 1
+        except ImportError as e:
+            logger.warning(f"日志工具加载失败: {e}")
+
+        # --- IaC / GitOps 工具 (v4.3.0) ---
+        try:
+            from ..tools.terraform_tools import TerraformInit, TerraformPlan, TerraformApply, TerraformState, TerraformOutput, TerraformValidate
+            for t in [TerraformInit(), TerraformPlan(), TerraformApply(), TerraformState(), TerraformOutput(), TerraformValidate()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"Terraform 工具加载失败: {e}")
+
+        try:
+            from ..tools.gitops_tools import ArgoCDApps, ArgoCDProjects, ArgoCDRepositories, FluxGetResources, FluxReconcile
+            for t in [ArgoCDApps(), ArgoCDProjects(), ArgoCDRepositories(), FluxGetResources(), FluxReconcile()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"GitOps 工具加载失败: {e}")
+
+        # --- CI/CD 工具 (v4.3.0) ---
+        try:
+            from ..tools.cicd_tools import JenkinsJob, GitLabCI, GitHubActions
+            for t in [JenkinsJob(), GitLabCI(), GitHubActions()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"CI/CD 工具加载失败: {e}")
+
+        # --- 安全工具 (v4.3.0) ---
+        try:
+            from ..tools.security_tools import TrivyScan, TrivyRepo, FalcoRules, OPAEvaluate, KubeBench, KubescapeScan
+            for t in [TrivyScan(), TrivyRepo(), FalcoRules(), OPAEvaluate(), KubeBench(), KubescapeScan()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"安全工具加载失败: {e}")
+
+        # --- FinOps 工具 (v4.3.0) ---
+        try:
+            from ..tools.finops_tools import KubecostAllocation, KubecostAssets, AWSCostExplorer, AzureCost
+            for t in [KubecostAllocation(), KubecostAssets(), AWSCostExplorer(), AzureCost()]:
+                self.tool_registry.register(t); registered += 1
+        except ImportError as e:
+            logger.warning(f"FinOps 工具加载失败: {e}")
+
+        logger.info(f"工具注册完成: {registered} 个工具")
 
     def register_module(self, name: str, module: Any):
         """注册功能模块"""
