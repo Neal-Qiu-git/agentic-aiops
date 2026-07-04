@@ -43,7 +43,7 @@ export const toolCategories = [
   { name: '可观测性', icon: '🔭', count: 20, tools: ['Prometheus (5)', 'Grafana (4)', 'Loki (4)', 'Alertmanager (3)', 'SkyWalking (2)', 'Jaeger', 'OpenTelemetry', 'Tempo'], color: '#3b82f6' },
   { name: '数据库', icon: '🗄️', count: 20, tools: ['MySQL (2)', 'Redis (6)', 'PostgreSQL', 'MongoDB', 'Elasticsearch', 'Oracle', 'ClickHouse', 'TiDB', 'DM8', 'OceanBase', 'KingbaseES', 'Cassandra', 'DynamoDB'], color: '#8b5cf6' },
   { name: '云平台', icon: '☁️', count: 9, tools: ['AWS CLI', '阿里云 CLI', '华为云 CLI', '腾讯云 CLI', 'Azure CLI', 'GCP CLI', 'OpenStack (3)'], color: '#f97316' },
-  { name: '容器/K8s', icon: '🐳', count: 21, tools: ['K8s (11)', 'Docker (7)', 'containerd', 'Podman', 'Harbor'], color: '#0ea5e9' },
+  { name: '容器/K8s', icon: '🐳', count: 30, tools: ['K8s (11)', 'Docker (7)', 'Swarm (5)', 'containerd', 'Podman', 'Nomad (4)', 'Harbor'], color: '#0ea5e9' },
   { name: '中间件', icon: '📦', count: 14, tools: ['Nginx', 'Tomcat', 'RabbitMQ', 'Kafka', 'TongWeb', 'Pulsar', 'NATS', 'HAProxy', 'Traefik', 'Consul', 'WildFly', 'Caddy', 'Elasticsearch'], color: '#a855f7' },
   { name: '安全', icon: '🔒', count: 8, tools: ['Trivy (2)', 'Falco', 'OPA', 'kube-bench', 'Kubescape', 'Firewall', 'CertManager'], color: '#ef4444' },
   { name: 'CI/CD', icon: '🚀', count: 5, tools: ['Jenkins', 'GitLab CI', 'GitHub Actions', 'SonarQube (2)'], color: '#10b981' },

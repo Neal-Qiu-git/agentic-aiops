@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/Version-5.3-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-148%2B_Tools-FF6B35?style=flat-square)]()
+[![MCP](https://img.shields.io/badge/MCP-157%2B_Tools-FF6B35?style=flat-square)]()
 
 English | [中文](README.md)
 
@@ -41,7 +41,7 @@ Generic AI Agent frameworks are not built for operations.
 
 - 🤖 **20+ Specialized Agents** — Linux, Docker, K8s, DB, Middleware, Network, Virtual, Windows, Monitor, Log, APM, SRE, Security, Incident, DevOps, GitOps, IaC, Cloud, Cost, ServiceMesh
 - 🔄 **ReAct Reasoning** — Multi-step reasoning with tool calling
-- 🔌 **148+ MCP Tools** — Covering 15 categories of ops scenarios
+- 🔌 **157+ MCP Tools** — Covering 15 categories of ops scenarios
 - 🧠 **Operational Memory** — Short-term, long-term, episodic, semantic memory
 - 📚 **Knowledge RAG** — Runbook retrieval and knowledge base
 - ⚡ **Event Bus** — Async event-driven architecture
@@ -109,8 +109,8 @@ helm install aiops ./charts/agentic-aiops
 | UOS ✅ | Podman ✅ | Oracle ✅ | Tomcat ✅ | Jaeger ✅ |
 | openEuler ✅ | K3s ✅ | DM8 ✅ | TongWeb ✅ | Loki ✅ |
 | Ubuntu/CentOS/RHEL ✅ | Docker Compose ✅ | MongoDB ✅ | WildFly/JBoss ✅ | Alertmanager ✅ |
-| Debian/SUSE ✅ | | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
-| Alpine ✅ | | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
+| Debian/SUSE ✅ | Docker Swarm ✅ | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
+| Alpine ✅ | Nomad ✅ | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
 | | | ClickHouse ✅ | NATS ✅ | Pyroscope ✅ |
 | | | OceanBase ✅ | HAProxy ✅ | Tempo ✅ |
 | | | KingbaseES ✅ | Traefik ✅ | |

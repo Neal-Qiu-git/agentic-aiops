@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/Version-5.3-orange.svg?style=flat-square)]()
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
-[![MCP](https://img.shields.io/badge/MCP-148%2B_Tools-FF6B35?style=flat-square)]()
+[![MCP](https://img.shields.io/badge/MCP-157%2B_Tools-FF6B35?style=flat-square)]()
 [![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://Neal-Qiu-git.github.io/agentic-aiops/)
 
 [English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)
@@ -31,7 +31,7 @@
 | 指标 | 数量 |
 |------|------|
 | 🤖 专业智能体 | 21+ |
-| 🔌 MCP 工具 | 148+ |
+| 🔌 MCP 工具 | 157+ |
 | 🏗️ 环境拓扑 | 18 种 |
 | 📊 Dashboard 页面 | 14 个 |
 | 🌐 REST API 端点 | 27+ |
@@ -57,7 +57,7 @@
 - **ReAct 生命周期** — 观察 → 推理 → 计划 → 执行 → 验证 → 学习
 
 ### 🔌 工具与集成
-- **148+ MCP 工具** — 覆盖 15 大类运维场景
+- **157+ MCP 工具** — 覆盖 15 大类运维场景
 - **技术栈全覆盖** — Prometheus、Grafana、SkyWalking、Jaeger、Loki、Terraform、Ansible、Helm、ArgoCD、Jenkins、Trivy、Kubecost 等
 - **多云支持** — AWS、Azure、GCP、阿里云、华为云、腾讯云
 
@@ -134,7 +134,7 @@ $ aiops diagnose --host 10.0.0.1 --symptom "服务响应慢"
 │ 📊 Monitor│ 📋 Log   │ 🔍 APM   │ 🏥 SRE   │ 🔒 Security │
 │ 💰 FinOps │ 🚨 Incident│ 🚀 DevOps│ 🔀 GitOps│ 🏗️ IaC   │
 ├──────────┴──────────┴──────────┴──────────┴─────────────┤
-│              🔌 MCP Tools (148+ 工具)                    │
+│              🔌 MCP Tools (157+ 工具)                    │
 │  Prometheus │ Grafana │ K8s │ Docker │ Terraform │ Vault │
 │  Ansible │ Helm │ ArgoCD │ Jenkins │ Trivy │ SkyWalking │
 ├─────────────────────────────────────────────────────────┤
@@ -227,8 +227,8 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 | 统信 UOS ✅ | Podman ✅ | Oracle ✅ | Tomcat ✅ | Jaeger ✅ |
 | openEuler ✅ | K3s ✅ | 达梦 DM8 ✅ | TongWeb ✅ | Loki ✅ |
 | Ubuntu/CentOS/RHEL ✅ | Docker Compose ✅ | MongoDB ✅ | WildFly/JBoss ✅ | Alertmanager ✅ |
-| Debian/SUSE ✅ | | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
-| Alpine ✅ | | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
+| Debian/SUSE ✅ | Docker Swarm ✅ | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
+| Alpine ✅ | Nomad ✅ | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
 | | | ClickHouse ✅ | NATS ✅ | Pyroscope ✅ |
 | | | OceanBase ✅ | HAProxy ✅ | Tempo ✅ |
 | | | KingbaseES ✅ | Traefik ✅ | |
@@ -359,7 +359,7 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 - [x] Web Dashboard (React + TypeScript + Vite)
 
 ### v4.x — 企业 ✅
-- [x] 148+ MCP 工具 (32+ 工具文件)
+- [x] 157+ MCP 工具 (32+ 工具文件)
 - [x] 21+ 专业智能体
 - [x] 18 种环境拓扑
 - [x] 环境发现 Agent
@@ -399,7 +399,7 @@ agentic-aiops/
 │   ├── plugins/                # 插件系统
 │   ├── rag/                    # RAG 检索
 │   ├── reporters/              # 报告生成
-│   ├── tools/                  # 32+ 工具文件 (148+ 工具)
+│   ├── tools/                  # 32+ 工具文件 (157+ 工具)
 │   ├── web/                    # Dashboard 构建产物
 │   └── workflow/               # 工作流引擎
 ├── dashboard/                  # Dashboard 前端 (React + TypeScript + Vite)
