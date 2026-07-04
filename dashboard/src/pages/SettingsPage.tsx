@@ -51,6 +51,7 @@ const initialSettings: SettingSection[] = [
 export default function SettingsPage() {
   const [sections, setSections] = useState(initialSettings);
   const [activeSection, setActiveSection] = useState('general');
+  const [saved, setSaved] = useState(false);
 
   const updateSetting = (sectionId: string, key: string, value: any) => {
     setSections(prev => prev.map(s =>
@@ -69,8 +70,12 @@ export default function SettingsPage() {
           <h1 style={{ fontSize: 24, fontWeight: 700 }}>⚙️ 系统设置</h1>
           <p style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>平台配置 · 通知 · 安全 · API</p>
         </div>
-        <button style={{ padding: '8px 20px', borderRadius: 8, border: 'none', background: '#3b82f6', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>
-          💾 保存设置
+        <button onClick={() => {
+          localStorage.setItem('aiops-settings', JSON.stringify(sections));
+          setSaved(true);
+          setTimeout(() => setSaved(false), 2000);
+        }} style={{ padding: '8px 20px', borderRadius: 8, border: 'none', background: saved ? '#10b981' : '#3b82f6', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 600, transition: 'background 0.3s' }}>
+          {saved ? '✅ 已保存' : '💾 保存设置'}
         </button>
       </div>
 

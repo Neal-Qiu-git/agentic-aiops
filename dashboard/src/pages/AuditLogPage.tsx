@@ -99,10 +99,18 @@ export default function AuditLogPage() {
 
       {/* Export */}
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-        <button style={{ padding: '8px 16px', borderRadius: 6, border: '1px solid #2a3050', background: 'transparent', color: '#94a3b8', cursor: 'pointer', fontSize: 12 }}>
+        <button onClick={() => {
+          const header = '时间,用户,操作,资源,详情,IP,结果\n';
+          const rows = filtered.map(l => `${l.time},${l.user},${l.action},${l.resource},"${l.detail}",${l.ip},${l.result}`).join('\n');
+          const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
+          const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'audit-log.csv'; a.click();
+        }} style={{ padding: '8px 16px', borderRadius: 6, border: '1px solid #2a3050', background: 'transparent', color: '#94a3b8', cursor: 'pointer', fontSize: 12 }}>
           📥 导出 CSV
         </button>
-        <button style={{ padding: '8px 16px', borderRadius: 6, border: '1px solid #2a3050', background: 'transparent', color: '#94a3b8', cursor: 'pointer', fontSize: 12 }}>
+        <button onClick={() => {
+          const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: 'application/json' });
+          const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'audit-log.json'; a.click();
+        }} style={{ padding: '8px 16px', borderRadius: 6, border: '1px solid #2a3050', background: 'transparent', color: '#94a3b8', cursor: 'pointer', fontSize: 12 }}>
           📤 导出 JSON
         </button>
       </div>

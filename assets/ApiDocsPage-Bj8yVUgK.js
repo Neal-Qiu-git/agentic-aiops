@@ -1,4 +1,4 @@
-import{i as e,s as t,t as n}from"./index-xv7UzsUB.js";var r=t(e(),1),i=n(),a=[{method:`GET`,path:`/api/v1/health`,title:`健康检查`,category:`基础`,description:`检查 API 服务是否正常运行，无需认证`,responseExample:`{
+import{i as e,s as t,t as n}from"./index-InlQoSr6.js";var r=t(e(),1),i=n(),a=[{method:`GET`,path:`/api/v1/health`,title:`健康检查`,category:`基础`,description:`检查 API 服务是否正常运行，无需认证`,responseExample:`{
   "status": "healthy",
   "version": "5.3.0"
 }`},{method:`GET`,path:`/api/v1/version`,title:`版本信息`,category:`基础`,description:`获取当前系统版本和运行环境信息`,responseExample:`{
