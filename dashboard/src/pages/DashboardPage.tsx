@@ -59,7 +59,7 @@ function OverviewTab({ navigate }: { navigate: any }) {
             { icon: '🔒', title: '安全合规', desc: '漏洞扫描（Trivy）、等保检查、配置审计、证书管理', color: '#ec4899' },
             { icon: '💰', title: '成本优化', desc: '多云费用分析、资源利用率、优化建议，支持 Kubecost / Infracost', color: '#f59e0b' },
           ].map(item => (
-            <div key={item.title} className="card" style={{ padding: '18px 20px', borderLeft: `3px solid ${item.color}` }}>
+            <div key={item.title} className="card" style={{ padding: '18px 20px', borderLeft: '3px solid ' + item.color }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                 <span style={{ fontSize: 24 }}>{item.icon}</span>
                 <span style={{ fontSize: 14, fontWeight: 700, color: item.color }}>{item.title}</span>
@@ -104,11 +104,11 @@ function OverviewTab({ navigate }: { navigate: any }) {
             { icon: '🔒', label: '安全态势', path: '/security', color: '#ec4899' },
           ].map(item => (
             <button key={item.path} onClick={() => navigate(item.path)} style={{
-              padding: '16px 12px', borderRadius: 10, border: `1px solid ${item.color}25`,
-              background: `${item.color}08`, cursor: 'pointer', textAlign: 'center',
+              padding: '16px 12px', borderRadius: 10, border: '1px solid ' + item.color + '25',
+              background: item.color + '08', cursor: 'pointer', textAlign: 'center',
             }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = `${item.color}15`; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = `${item.color}08`; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = item.color + '15'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = item.color + '08'; }}
             >
               <div style={{ fontSize: 24, marginBottom: 4 }}>{item.icon}</div>
               <div style={{ fontSize: 12, fontWeight: 600, color: item.color }}>{item.label}</div>
@@ -197,7 +197,7 @@ function GuideTab({ navigate }: { navigate: any }) {
           {steps.map(step => (
             <div key={step.num} className="card" style={{
               padding: '16px 20px', cursor: 'pointer',
-              borderLeft: `3px solid ${expandedStep === step.num ? '#3b82f6' : 'var(--border)'}`,
+              borderLeft: '3px solid ' + (expandedStep === step.num ? '#3b82f6' : 'var(--border)'),
               transition: 'all 0.2s',
             }} onClick={() => setExpandedStep(expandedStep === step.num ? null : step.num)}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -311,7 +311,7 @@ function GuideTab({ navigate }: { navigate: any }) {
 // Tab 3: Agent 网络
 // ══════════════════════════════════════════
 
-function NetworkTab({ navigate }: { navigate: any }) {
+function NetworkTab() {
   // 简化的网络拓扑图（纯 CSS/SVG，不依赖 ReactFlow）
   const agentList = demoAgentData;
   const connections = demoConnections;
@@ -377,7 +377,7 @@ function NetworkTab({ navigate }: { navigate: any }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {archLayers.map((layer) => (
             <div key={layer.name} className="card" style={{
-              padding: '16px 20px', borderLeft: `4px solid ${layer.color}`,
+              padding: '16px 20px', borderLeft: '4px solid ' + layer.color,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
                 <span style={{ fontSize: 14, fontWeight: 700, color: layer.color }}>{layer.name}</span>
@@ -391,7 +391,7 @@ function NetworkTab({ navigate }: { navigate: any }) {
                     <span key={name} style={{
                       display: 'inline-flex', alignItems: 'center', gap: 4,
                       padding: '4px 10px', borderRadius: 6,
-                      background: `${layer.color}10`, border: `1px solid ${layer.color}25`,
+                      background: layer.color + '10', border: '1px solid ' + layer.color + '25',
                       fontSize: 11, fontWeight: 500,
                     }}>
                       <span>{a?.icon || '🤖'}</span>
@@ -444,7 +444,7 @@ function NetworkTab({ navigate }: { navigate: any }) {
 // Tab 4: 智能体 & 工具
 // ══════════════════════════════════════════
 
-function AgentsTab({ navigate }: { navigate: any }) {
+function AgentsTab() {
   const agentData: AgentData[] = demoAgentData;
   const categories = toolCategories;
   const totalTools = categories.reduce((a, c) => a + c.count, 0);
@@ -578,8 +578,8 @@ export default function DashboardPage() {
       {/* Tab 内容 */}
       {tab === 'overview' && <OverviewTab navigate={navigate} />}
       {tab === 'guide' && <GuideTab navigate={navigate} />}
-      {tab === 'network' && <NetworkTab navigate={navigate} />}
-      {tab === 'agents' && <AgentsTab navigate={navigate} />}
+      {tab === 'network' && <NetworkTab />}
+      {tab === 'agents' && <AgentsTab />}
     </div>
   );
 }
