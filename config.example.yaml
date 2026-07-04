@@ -1,0 +1,345 @@
+# ═══════════════════════════════════════════════════════════════
+# Agentic AIOps 配置文件
+# 支持 9 种企业环境拓扑:
+#   1. pure_cloud          - 纯云 (单云)
+#   2. pure_on_prem        - 纯本地物理机
+#   3. pure_virtual        - 纯本地虚拟化
+#   4. hybrid_virtual_cloud - 混合云 (虚拟化+云)
+#   5. hybrid_physical_cloud - 混合云 (物理机+云)
+#   6. multi_cloud         - 多云
+#   7. hybrid_multi_cloud  - 混合多云
+#   8. cross_border        - 跨境部署
+#   9. edge                - 边缘+中心云
+# ═══════════════════════════════════════════════════════════════
+
+# ── 环境定义 ──
+# 一个企业可能有多个环境 (生产/测试/开发/灾备)
+# 每个环境独立定义其基础设施拓扑
+environments:
+  # ── 示例1: 纯云 (阿里云) ──
+  - env_id: env-prod-aliyun
+    env_name: 生产环境 - 阿里云
+    type: pure_cloud
+    description: 全站生产环境，部署在阿里云
+    cloud_regions:
+      - provider: aliyun
+        region_id: cn-shanghai
+        region_name: 上海
+        zones: [cn-shanghai-h, cn-shanghai-i]
+        network_zone: production
+    network_zones: [production, dmz]
+    resources:
+      total_containers: 156
+      total_k8s_clusters: 2
+      total_databases: 8
+      total_storage_tb: 12.5
+      total_monthly_cost_yuan: 85000
+    tags: [production, aliyun, core]
+
+  # ── 示例2: 纯本地物理机 (银行核心) ──
+  - env_id: env-bank-onprem
+    env_name: 银行核心系统 - 本地物理机
+    type: pure_on_prem
+    description: 银行核心业务，全部本地部署，符合金融监管
+    on_prem_sites:
+      - site_id: dc-hq
+        site_name: 总部数据中心
+        location: 泸州
+        infra_provider: vmware
+        storage_type: SAN
+        network_type: 万兆
+      - site_id: dc-dr
+        site_name: 灾备数据中心
+        location: 成都
+        storage_type: SAN
+    network_zones: [production, management, dmz]
+    resources:
+      total_servers: 45
+      total_vms: 120
+      total_databases: 15
+      total_network_devices: 32
+      total_storage_tb: 200
+    tags: [production, banking, compliance, on-premise]
+
+  # ── 示例3: 纯本地虚拟化 (VMware) ──
+  - env_id: env-dev-virtual
+    env_name: 开发测试环境 - VMware
+    type: pure_virtual
+    description: 开发测试环境，VMware vSphere 虚拟化
+    on_prem_sites:
+      - site_id: dc-dev
+        site_name: 开发机房
+        location: 泸州
+        infra_provider: vmware
+        storage_type: NAS
+    network_zones: [development, staging]
+    resources:
+      total_servers: 3
+      total_vms: 35
+      total_containers: 10
+      total_k8s_clusters: 1
+      total_databases: 6
+      total_storage_tb: 15
+    tags: [development, vmware]
+
+  # ── 示例4: 混合云 (VMware + 华为云) ──
+  - env_id: env-prod-hybrid
+    env_name: 生产混合环境 - VMware + 华为云
+    type: hybrid_virtual_cloud
+    description: 核心系统在本地VMware，前端在华为云，专线互联
+    cloud_regions:
+      - provider: huawei
+        region_id: cn-north-4
+        region_name: 北京四
+        zones: [cn-north-4a, cn-north-4b]
+        network_zone: production
+        latency_ms: 3.2
+    on_prem_sites:
+      - site_id: dc-core
+        site_name: 核心机房
+        location: 泸州
+        infra_provider: vmware
+        storage_type: SAN
+    interconnects:
+      - type: 专线
+        bandwidth: 1Gbps
+        latency_ms: 3.2
+        source: dc-core
+        target: cn-north-4
+    network_zones: [production, dmz, management]
+    resources:
+      total_servers: 8
+      total_vms: 65
+      total_containers: 80
+      total_k8s_clusters: 2
+      total_databases: 10
+      total_storage_tb: 80
+      total_monthly_cost_yuan: 42000
+    tags: [production, hybrid, vmware, huawei]
+
+  # ── 示例5: 多云 (阿里+华为+AWS) ──
+  - env_id: env-multi-cloud
+    env_name: 多云业务环境
+    type: multi_cloud
+    description: 国内在阿里/华为，海外在AWS，三云统一管控
+    cloud_regions:
+      - provider: aliyun
+        region_id: cn-hangzhou
+        region_name: 杭州
+        zones: [cn-hangzhou-b]
+        network_zone: production
+      - provider: huawei
+        region_id: cn-north-1
+        region_name: 北京
+        network_zone: production
+        latency_ms: 12.5
+      - provider: aws
+        region_id: ap-southeast-1
+        region_name: 新加坡
+        network_zone: overseas
+        latency_ms: 45.0
+    interconnects:
+      - type: VPN
+        bandwidth: 200Mbps
+        latency_ms: 12.5
+        source: cn-hangzhou
+        target: cn-north-1
+      - type: 专线
+        bandwidth: 500Mbps
+        latency_ms: 45.0
+        source: cn-hangzhou
+        target: ap-southeast-1
+    network_zones: [production, overseas]
+    resources:
+      total_containers: 320
+      total_k8s_clusters: 5
+      total_databases: 18
+      total_storage_tb: 45
+      total_monthly_cost_yuan: 186000
+    tags: [production, multi-cloud, global]
+
+  # ── 示例6: 混合多云 (本地+华为+腾讯+AWS) ──
+  - env_id: env-hybrid-multi
+    env_name: 全栈混合多云
+    type: hybrid_multi_cloud
+    description: 核心数据在本地VMware，计算在华为云，CDN在腾讯云，海外在AWS
+    cloud_regions:
+      - provider: huawei
+        region_id: cn-north-4
+        region_name: 北京四
+        network_zone: production
+      - provider: tencent
+        region_id: ap-guangzhou
+        region_name: 广州
+        network_zone: production
+      - provider: aws
+        region_id: us-east-1
+        region_name: 弗吉尼亚
+        network_zone: overseas
+        latency_ms: 180.0
+    on_prem_sites:
+      - site_id: dc-core
+        site_name: 总部机房
+        location: 泸州
+        infra_provider: vmware
+        storage_type: SAN
+    interconnects:
+      - type: 专线
+        bandwidth: 1Gbps
+        latency_ms: 3.0
+        source: dc-core
+        target: cn-north-4
+      - type: VPN
+        bandwidth: 200Mbps
+        latency_ms: 25.0
+        source: cn-north-4
+        target: ap-guangzhou
+      - type: VPN
+        bandwidth: 100Mbps
+        latency_ms: 180.0
+        source: cn-north-4
+        target: us-east-1
+    network_zones: [production, overseas, dmz]
+    resources:
+      total_servers: 12
+      total_vms: 85
+      total_containers: 280
+      total_k8s_clusters: 4
+      total_databases: 22
+      total_network_devices: 18
+      total_storage_tb: 150
+      total_monthly_cost_yuan: 235000
+    tags: [production, hybrid, multi-cloud, global]
+
+  # ── 示例7: 跨境部署 (境内+境外) ──
+  - env_id: env-cross-border
+    env_name: 跨境合规环境
+    type: cross_border
+    description: 境内阿里云(用户数据不出境)+境外AWS(海外服务)，PIPL合规
+    cloud_regions:
+      - provider: aliyun
+        region_id: cn-hangzhou
+        region_name: 杭州
+        network_zone: production
+      - provider: aws
+        region_id: ap-southeast-1
+        region_name: 新加坡
+        network_zone: overseas
+        latency_ms: 52.0
+    cross_border_links:
+      - link_id: link-sg
+        source: cn-hangzhou
+        target: ap-southeast-1
+        link_type: IPSec VPN
+        bandwidth: 200Mbps
+        latency_ms: 52.0
+        encrypted: true
+        compliance: [PIPL, PDPA]
+    network_zones: [production, overseas, dmz]
+    resources:
+      total_containers: 120
+      total_k8s_clusters: 2
+      total_databases: 6
+      total_storage_tb: 20
+      total_monthly_cost_yuan: 98000
+    tags: [production, cross-border, compliance, PIPL]
+
+  # ── 示例8: 边缘+中心云 ──
+  - env_id: env-edge
+    env_name: 边缘计算 + 中心云
+    type: edge
+    description: 泸州ARM64边缘节点(银河麒麟V10)+华为云中心集群
+    cloud_regions:
+      - provider: huawei
+        region_id: cn-north-4
+        region_name: 北京四
+        network_zone: production
+    edge_sites:
+      - site_id: edge-luzhou-1
+        site_name: 泸州柜员终端
+        location: 泸州
+        device_type: arm64
+        os: Kylin V10
+        connectivity: 专线
+      - site_id: edge-chengdu-1
+        site_name: 成都分行
+        location: 成都
+        device_type: arm64
+        os: Kylin V10
+        connectivity: 专线
+    interconnects:
+      - type: 专线
+        bandwidth: 100Mbps
+        latency_ms: 5.0
+        source: edge-luzhou-1
+        target: cn-north-4
+    network_zones: [production, edge]
+    resources:
+      total_servers: 3
+      total_containers: 45
+      total_k8s_clusters: 1
+      total_databases: 3
+      total_storage_tb: 5
+      total_monthly_cost_yuan: 28000
+    tags: [production, edge, kylin, arm64]
+
+# ── 默认设置 ──
+defaults:
+  timeout: 10
+  retry: 3
+  retry_delay: 5
+
+# ── AI 配置 ──
+ai:
+  enabled: false
+  provider: deepseek
+  model: deepseek-chat
+  base_url: https://api.deepseek.com/v1
+  max_tokens: 4096
+  temperature: 0.2
+  timeout: 30
+
+# ── 告警阈值 ──
+thresholds:
+  cpu:
+    warning: 70
+    critical: 90
+  memory:
+    warning: 75
+    critical: 90
+  disk:
+    warning: 75
+    critical: 90
+  load:
+    warning: 2.0
+    critical: 5.0
+
+# ── 安全配置 ──
+security:
+  blocked_commands:
+    - rm -rf
+    - mkfs
+    - dd
+    - shutdown
+    - reboot
+  blocked_paths:
+    - /etc/shadow
+    - /root/.ssh
+  max_output_size: 10000
+  command_timeout: 60
+  audit_logging: true
+
+# ── 日志文件 ──
+log_files:
+  - /var/log/syslog
+  - /var/log/auth.log
+  - /var/log/nginx/error.log
+
+# ── 错误模式 ──
+error_patterns:
+  - ERROR
+  - FATAL
+  - OOM
+  - Connection refused
+  - timeout
+  - permission denied
