@@ -12,7 +12,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)]()
 [![K8s](https://img.shields.io/badge/Kubernetes-Ready-326CE5?style=flat-square&logo=kubernetes&logoColor=white)]()
 [![MCP](https://img.shields.io/badge/MCP-20%2B_Tools-FF6B35?style=flat-square)]()
-[![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://neal4752.gitee.io/agentic-aiops/dashboard-dist/)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Live-brightgreen?style=flat-square&logo=react&logoColor=white)](https://Neal-Qiu-git.github.io/agentic-aiops/)
 
 [English](README_EN.md) | 中文 | [Docs](docs/) | [Examples](examples/) | [Changelog](CHANGELOG.md)
 
@@ -57,7 +57,7 @@
 
 ## 📸 在线演示
 
-> **[🚀 点击查看 Dashboard 预览](https://gitee.com/neal4752/agentic-aiops/raw/main/preview.html)** — 深空科技风可视化运维平台
+> **[🚀 点击查看 Dashboard](https://Neal-Qiu-git.github.io/agentic-aiops/)** — 深空科技风可视化运维平台
 
 ### 🕸️ Agent 网络拓扑
 
