@@ -15,6 +15,7 @@ export interface Agent {
 export const agents: Agent[] = [
   { id: 'linux', name: 'Linux Agent', icon: '🐧', description: '系统诊断与性能分析', status: 'active', color: '#10b981', tasks: 1247, successRate: 96.5, avgResponseTime: '2.3s', category: 'infra' },
   { id: 'k8s', name: 'K8s Agent', icon: '☸️', description: 'Kubernetes 运维管理', status: 'active', color: '#3b82f6', tasks: 892, successRate: 94.2, avgResponseTime: '3.1s', category: 'infra' },
+  { id: 'docker', name: 'Docker Agent', icon: '🐳', description: 'Docker 容器运维', status: 'active', color: '#0ea5e9', tasks: 1024, successRate: 96.8, avgResponseTime: '1.9s', category: 'infra' },
   { id: 'db', name: 'DB Agent', icon: '🗄️', description: '数据库诊断优化', status: 'active', color: '#8b5cf6', tasks: 634, successRate: 97.8, avgResponseTime: '1.8s', category: 'data' },
   { id: 'log', name: 'Log Agent', icon: '📋', description: '日志分析与告警', status: 'idle', color: '#f59e0b', tasks: 2156, successRate: 92.1, avgResponseTime: '1.2s', category: 'monitor' },
   { id: 'monitor', name: 'Monitor Agent', icon: '📊', description: '监控数据分析', status: 'active', color: '#06b6d4', tasks: 1580, successRate: 95.3, avgResponseTime: '0.8s', category: 'monitor' },
@@ -31,12 +32,14 @@ export const agents: Agent[] = [
 export const connections = [
   { source: 'planner', target: 'linux', label: '调度' },
   { source: 'planner', target: 'k8s', label: '调度' },
+  { source: 'planner', target: 'docker', label: '调度' },
   { source: 'planner', target: 'db', label: '调度' },
   { source: 'planner', target: 'log', label: '调度' },
   { source: 'planner', target: 'monitor', label: '调度' },
   { source: 'planner', target: 'security', label: '调度' },
   { source: 'linux', target: 'monitor', label: '数据' },
   { source: 'k8s', target: 'monitor', label: '指标' },
+  { source: 'docker', target: 'monitor', label: '指标' },
   { source: 'db', target: 'log', label: '日志' },
   { source: 'log', target: 'incident', label: '告警' },
   { source: 'monitor', target: 'sre', label: 'SLO' },

@@ -279,6 +279,7 @@ class AIOpsHandler(BaseHTTPRequestHandler):
         agents = [
             {"name": "linux", "description": "System operations"},
             {"name": "k8s", "description": "Kubernetes operations"},
+            {"name": "docker", "description": "Docker container operations"},
             {"name": "db", "description": "Database operations"},
             {"name": "log", "description": "Log analysis"},
             {"name": "monitor", "description": "Monitoring analysis"},

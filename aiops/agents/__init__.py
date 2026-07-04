@@ -6,6 +6,7 @@ from .sre_agent import SREAgent
 from .cost_agent import CostAgent
 from .incident_agent import IncidentAgent
 from .cmdb_agent import CMDBAgent
+from .docker_agent import DockerAgent
 
 __all__ = [
     "BaseAgent",
@@ -16,4 +17,5 @@ __all__ = [
     "CostAgent",
     "IncidentAgent",
     "CMDBAgent",
+    "DockerAgent",
 ]
