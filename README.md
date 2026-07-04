@@ -227,8 +227,8 @@ helm install aiops ./charts/agentic-aiops --set ai.apiKey=your-key
 | 统信 UOS ✅ | Podman ✅ | Oracle ✅ | Tomcat ✅ | Jaeger ✅ |
 | openEuler ✅ | K3s ✅ | 达梦 DM8 ✅ | TongWeb ✅ | Loki ✅ |
 | Ubuntu/CentOS/RHEL ✅ | Docker Compose ✅ | MongoDB ✅ | WildFly/JBoss ✅ | Alertmanager ✅ |
-| Debian/SUSE ✅ | Docker Swarm ✅ | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
-| Alpine ✅ | Nomad ✅ | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
+| Debian/SUSE ✅ | | Elasticsearch ✅ | Caddy ✅ | OpenTelemetry ✅ |
+| Alpine ✅ | | TiDB ✅ | Pulsar ✅ | Grafana Mimir ✅ |
 | | | ClickHouse ✅ | NATS ✅ | Pyroscope ✅ |
 | | | OceanBase ✅ | HAProxy ✅ | Tempo ✅ |
 | | | KingbaseES ✅ | Traefik ✅ | |
