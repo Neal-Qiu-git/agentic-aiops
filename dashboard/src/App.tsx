@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
 import NetworksPage from './pages/NetworksPage';
 import DashboardPage from './pages/DashboardPage';
 import WorkflowsPage from './pages/WorkflowsPage';
 import EventsPage from './pages/EventsPage';
 import AgentsPage from './pages/AgentsPage';
+import ApiDocsPage from './pages/ApiDocsPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app-layout">
         <aside className="sidebar">
           <div className="sidebar-header">
@@ -37,16 +38,22 @@ function App() {
               </NavLink>
             </div>
             <div className="nav-section">
-              <div className="nav-section-title">系统</div>
-              <a className="nav-link" href="http://localhost:3001/docs" target="_blank" rel="noreferrer">
+              <div className="nav-section-title">开发</div>
+              <NavLink to="/api-docs" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
                 <span>📖</span><span>API 文档</span>
-              </a>
+              </NavLink>
+            </div>
+            <div className="nav-section">
+              <div className="nav-section-title">系统</div>
               <a className="nav-link" href="https://gitee.com/neal4752/agentic-aiops" target="_blank" rel="noreferrer">
-                <span>🐙</span><span>源码仓库</span>
+                <span>🐙</span><span>Gitee</span>
+              </a>
+              <a className="nav-link" href="https://github.com/Neal-Qiu-git/agentic-aiops" target="_blank" rel="noreferrer">
+                <span>🐱</span><span>GitHub</span>
               </a>
             </div>
           </nav>
-          <div style={{padding: '12px', borderTop: '1px solid var(--border)', fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center'}}>
+          <div style={{padding: '12px', borderTop: '1px solid rgba(59,130,246,0.15)', fontSize: '11px', color: '#475569', textAlign: 'center'}}>
             v4.2.0 · MIT License
           </div>
         </aside>
@@ -57,10 +64,11 @@ function App() {
             <Route path="/agents" element={<AgentsPage />} />
             <Route path="/workflows" element={<WorkflowsPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route path="/api-docs" element={<ApiDocsPage />} />
           </Routes>
         </main>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
